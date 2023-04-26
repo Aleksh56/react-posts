@@ -1,6 +1,8 @@
-import React from "react"
+import Modal from "./Modal"
 
 const Hero = () => {
+
+  
   return (
     <section className="hero bg-green-200 py-10">
       <div className="container mx-auto">
@@ -14,9 +16,8 @@ const Hero = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Reprehenderit, id blanditiis. Minus eligendi ducimus ipsa?
             </p>
-            <button className="bg-sky-500 rounded-lg p-2 text-white font-bold">
-              Создать пост
-            </button>
+            {/* Тут модаль. Я переместил в файл Modal.jsx*/}
+            <Modal/>
           </div>
         </div>
       </div>

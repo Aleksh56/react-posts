@@ -1,4 +1,3 @@
-import React from "react"
 
 const Footer = () => {
   return (
@@ -9,12 +8,13 @@ const Footer = () => {
           <a
             href="https://github.com/Aleksh56"
             target="_blank"
+            rel="noreferrer"
             className="text-sky-400"
           >
             Аверьянов Александр
           </a>{" "}
           и{" "}
-          <a href="https://github.com/VasyaRns" target="_blank" className="text-sky-400">
+          <a href="https://github.com/VasyaRns" target="_blank" rel="noreferrer" className="text-sky-400">
             Родин Никита
           </a>
           .

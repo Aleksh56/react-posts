@@ -10,7 +10,7 @@ const Header = () => {
             <h1 className="ml-3">Реактивные посты</h1>
           </a>
         </div>
-        <div className="header__signin">Something</div>
+        <div className="header__signin">Профиль</div>
       </div>
     </header>
   )
