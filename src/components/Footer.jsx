@@ -14,8 +14,8 @@ const Footer = () => {
             Аверьянов Александр
           </a>{" "}
           и{" "}
-          <a href="#" target="_blank" className="text-sky-400">
-            Имя Фамилия
+          <a href="https://github.com/VasyaRns" target="_blank" className="text-sky-400">
+            Родин Никита
           </a>
           .
         </p>
