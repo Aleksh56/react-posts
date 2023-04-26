@@ -2,22 +2,48 @@ import React, { useState } from "react"
 import "../index.css"
 
 function AuthPage({ handleUserLogin }) {
-  const [loginUsername, setLoginUsername] = useState("")
+  const [loginEmail, setLoginEmail] = useState("")
   const [loginPassword, setLoginPassword] = useState("")
-  const [registerUsername, setRegisterUsername] = useState("")
+  const [registerEmail, setRegisterEmail] = useState("")
   const [registerPassword, setRegisterPassword] = useState("")
   const [isLoginFormShown, setIsLoginFormShown] = useState(false)
 
+  // Todo - запросы к API должны быть в отдельном классе API (папка для него уже создана)
+  // Todo - вынести формы по отдельным файлам и ипортировать их сюда
+
   const handleLoginSubmit = (event) => {
     event.preventDefault()
-
-    // Todo: send login request to server
+    fetch("https://api.react-learning.ru/signin", {
+      method: "POST",
+      body: JSON.stringify({
+        email: loginEmail,
+        password: loginPassword,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+    handleUserLogin()
   }
 
   const handleRegisterSubmit = (event) => {
     event.preventDefault()
 
-    // Todo: send registration request to server
+    fetch("https://api.react-learning.ru/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        email: registerEmail,
+        group: "ep",
+        password: registerPassword,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json))
     setIsLoginFormShown(true)
   }
 
@@ -46,8 +72,8 @@ function AuthPage({ handleUserLogin }) {
                     id="login-username"
                     type="text"
                     placeholder="Введите имя пользователя"
-                    value={loginUsername}
-                    onChange={(event) => setLoginUsername(event.target.value)}
+                    value={loginEmail}
+                    onChange={(event) => setLoginEmail(event.target.value)}
                   />
                 </div>
                 <div className="mb-6">
@@ -70,7 +96,6 @@ function AuthPage({ handleUserLogin }) {
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3"
                     type="submit"
-                    onClick={handleUserLogin}
                   >
                     Войти
                   </button>
@@ -109,10 +134,8 @@ function AuthPage({ handleUserLogin }) {
                     id="register-username"
                     type="text"
                     placeholder="Введите имя пользователя"
-                    value={registerUsername}
-                    onChange={(event) =>
-                      setRegisterUsername(event.target.value)
-                    }
+                    value={registerEmail}
+                    onChange={(event) => setRegisterEmail(event.target.value)}
                   />
                 </div>
                 <div className="mb-6">

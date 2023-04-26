@@ -9,7 +9,7 @@ import MainPage from "./components/MainPage"
 import AuthPage from "./components/AuthPage"
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const handleLogin = () => {
     setIsAuthenticated(true)
