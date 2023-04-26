@@ -12,6 +12,7 @@ function AuthPage({ handleUserLogin }) {
 
   // Todo - запросы к API должны быть в отдельном классе API (папка для него уже создана)
   // Todo - вынести формы по отдельным файлам и ипортировать их сюда
+  // Test comment
 
   const handleLoginSubmit = (event) => {
     event.preventDefault()
