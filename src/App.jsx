@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   BrowserRouter as Router,
   Route,
@@ -9,10 +9,12 @@ import MainPage from "./components/MainPage"
 import AuthPage from "./components/AuthPage"
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [userData, setUserData] = useState()
 
-  const handleLogin = () => {
+  const handleLogin = (loginData) => {
     setIsAuthenticated(true)
+    setUserData(loginData)
   }
 
   const handleLogout = () => {
@@ -36,7 +38,7 @@ const App = () => {
           path="/main"
           element={
             isAuthenticated ? (
-              <MainPage onLogout={handleLogout} />
+              <MainPage onLogout={handleLogout} userData={userData} />
             ) : (
               <Navigate to="/" replace />
             )

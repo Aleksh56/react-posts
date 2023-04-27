@@ -3,10 +3,10 @@ import Header from "./Header"
 import Footer from "./Footer"
 import Hero from "./Hero"
 
-const MainPage = () => {
+const MainPage = ({ onLogout, userData }) => {
   return (
     <>
-      <Header />
+      <Header handleLogout={onLogout} userData={userData} />
       <main>
         <Hero />
       </main>

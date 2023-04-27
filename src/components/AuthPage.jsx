@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { api } from "../api/api"
 import "../index.css"
 
 function AuthPage({ handleUserLogin }) {
@@ -15,55 +16,26 @@ function AuthPage({ handleUserLogin }) {
 
   // Note - не могу вынести в отдельный файл формы. Туплю и не понимаю как менять стейты на 2 уровня выше, получаются костыли. Пока оставлю так, чтобы был рабочий прототип
 
-  const handleResetPassword = (event) => {
+  const handleLoginSubmit = async (event) => {
     event.preventDefault()
-    fetch("https://api.react-learning.ru/password-reset", {
-      method: "POST",
-      body: JSON.stringify({
-        email: forgotPasswordEmail,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json))
+    try {
+      const loginSucces = await api.handleLoginSubmit(event)
+      loginSucces.success === 1
+        ? handleUserLogin(loginSucces.data)
+        : console.log("Error")
+    } catch (error) {
+      console.log("Ошибка - ", error) // Сдесь добавим модалку сверху и будем ее выводить
+    }
   }
 
-  const handleLoginSubmit = (event) => {
+  const handleRegisterSubmit = async (event) => {
     event.preventDefault()
-    fetch("https://api.react-learning.ru/signin", {
-      method: "POST",
-      body: JSON.stringify({
-        email: loginEmail,
-        password: loginPassword,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json))
-    //handleUserLogin()
-  }
-
-  const handleRegisterSubmit = (event) => {
-    event.preventDefault()
-
-    fetch("https://api.react-learning.ru/signup", {
-      method: "POST",
-      body: JSON.stringify({
-        email: registerEmail,
-        group: "ep",
-        password: registerPassword,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json))
-    setIsLoginFormShown(true)
+    try {
+      const regResult = await api.handleRegisterSubmit(event)
+      regResult === 1 ? setIsLoginFormShown(true) : setIsLoginFormShown(false)
+    } catch (error) {
+      console.log("Ошибка - ", error) // Сдесь добавим модалку сверху и будем ее выводить
+    }
   }
 
   const toggleResetPassForm = () => {
@@ -210,7 +182,7 @@ function AuthPage({ handleUserLogin }) {
             <>
               <h2 className="text-xl font-bold mb-4">Восстановление пароля</h2>
 
-              <form onSubmit={handleResetPassword}>
+              <form onSubmit={api.handleResetPassword}>
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 font-bold mb-2"
