@@ -7,7 +7,7 @@ const Hero = ({ refreshFlagOnPage }) => {
         <div className="welcome__block flex flex-col items-start bg-white rounded-lg p-7">
           <div className="welcome__breadcrumps">bread</div>
           <div className="welcome__greeting text-3xl font-bold py-5">
-            Добро пожаловать на какую-то страницу
+            Добро пожаловать на страницу с супер котиками !
           </div>
           <div className="welcome__info flex items-center justify-between w-full">
             <p>
