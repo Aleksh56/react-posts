@@ -1,8 +1,6 @@
 import Modal from "./Modal"
 
 const Hero = () => {
-
-  
   return (
     <section className="hero bg-green-200 py-10">
       <div className="container mx-auto">
@@ -16,8 +14,7 @@ const Hero = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Reprehenderit, id blanditiis. Minus eligendi ducimus ipsa?
             </p>
-            {/* Тут модаль. Я переместил в файл Modal.jsx*/}
-            <Modal/>
+            <Modal />
           </div>
         </div>
       </div>

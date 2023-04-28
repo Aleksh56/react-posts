@@ -9,7 +9,7 @@ const Header = ({ handleLogout }) => {
     const fetchUserData = async () => {
       const userData = await api.getUserInfo()
       setUserInfo(userData)
-      window.localStorage.setItem("userData", JSON.stringify(userInfo))
+      window.localStorage.setItem("userData", JSON.stringify(userData))
     }
 
     fetchUserData()

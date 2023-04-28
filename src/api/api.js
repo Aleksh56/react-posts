@@ -105,11 +105,13 @@ class Api{
         headers: this.headers,
     }).then((response)=> {return response.json()})
     }
-    getAllPosts = () =>{
-      fetch(`${this.baseUrl}/posts`,{
+    getAllPosts = async () =>{
+      const fetchPosts = await fetch(`${this.baseUrl}/posts`,{
+        method: "GET",
         headers: this.headers
     })
-      .then((response)=> {return response.json()})
+      const allPosts = await fetchPosts.json()
+      return allPosts
     }
     addNewPost = (newPost) =>{
       fetch(`${this.baseUrl}/posts`,{

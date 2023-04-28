@@ -1,25 +1,29 @@
+import React from "react"
+import AUTHORS from "../constants/Authors"
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="flex items-center justify-center py-3 bg-slate-600">
       <div className="footer__content flex items-center flex-col text-white">
         <p>
           Авторы проекта:{" "}
-          <a
-            href="https://github.com/Aleksh56"
-            target="_blank"
-            rel="noreferrer"
-            className="text-sky-400"
-          >
-            Аверьянов Александр
-          </a>{" "}
-          и{" "}
-          <a href="https://github.com/VasyaRns" target="_blank" rel="noreferrer" className="text-sky-400">
-            Родин Никита
-          </a>
-          .
+          {AUTHORS.map((author, index) => (
+            <React.Fragment key={index}>
+              <a
+                href={author.github}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sky-400"
+              >
+                {author.name}
+              </a>
+              {index < AUTHORS.length - 1 ? " и " : "."}
+            </React.Fragment>
+          ))}
         </p>
-        <p>{new Date().getFullYear()} ©</p>
+        <p>{currentYear} ©</p>
       </div>
     </footer>
   )
