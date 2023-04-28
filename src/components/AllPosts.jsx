@@ -3,7 +3,7 @@ import { api } from "../api/api"
 import Post from "./Post"
 import { FaSpinner } from "react-icons/fa"
 
-const AllPosts = ({ refreshFlag }) => {
+const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const [posts, setPosts] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -26,7 +26,13 @@ const AllPosts = ({ refreshFlag }) => {
   }
 
   const postItems = posts
-    ? posts.map((post) => <Post key={post._id} postInfo={post} />)
+    ? posts.map((post) => (
+        <Post
+          key={post._id}
+          postInfo={post}
+          refreshPosts={refreshPostsOnPage}
+        />
+      ))
     : null
 
   return (

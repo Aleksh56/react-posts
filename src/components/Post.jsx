@@ -1,18 +1,28 @@
 import { useState } from "react"
-import { FaHeart } from "react-icons/fa"
+import { FaHeart, FaTrash } from "react-icons/fa"
 import { api } from "../api/api"
 
-const Post = ({ postInfo }) => {
+const Post = ({ postInfo, refreshPosts }) => {
   const [isLiked, setIsLiked] = useState(false)
   const { author, comments, created_at, image, likes, tags, text, title } =
     postInfo
 
-  const handleLikeClick = async () => {
+  const handleLikeClick = async (event) => {
+    console.log(event)
     setIsLiked(!isLiked)
     !isLiked ? likes.push("like)") : likes.pop()
     // Todo - оптравить изменения в API
     try {
       await api.updatePostInfo(postInfo)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleDeleteClick = async () => {
+    try {
+      await api.deletePost(postInfo._id)
+      refreshPosts()
     } catch (error) {
       console.error(error)
     }
@@ -55,6 +65,9 @@ const Post = ({ postInfo }) => {
         </div>
 
         <div className="absolute bottom-0 right-0 flex items-center mr-4 mb-4">
+          <button onClick={handleDeleteClick}>
+            <FaTrash className="mr-4 text-lg text-gray-500 focus:outline-none" />
+          </button>
           <button onClick={handleLikeClick}>
             <FaHeart
               className={`mr-2 text-lg ${

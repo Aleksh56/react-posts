@@ -15,7 +15,10 @@ const MainPage = ({ onLogout }) => {
       <Header handleLogout={onLogout} />
       <main>
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
-        <AllPosts refreshFlag={addPostFlag} />
+        <AllPosts
+          refreshFlag={addPostFlag}
+          refreshPostsOnPage={refreshPostsOnPage}
+        />
       </main>
       <Footer />
     </>

@@ -123,13 +123,21 @@ class Api{
     }
 
     updatePostInfo = async (post) => {
-      console.log(post)
-      console.log(JSON.stringify(post))
-      console.log(post._id)
+      // console.log(post)
+      // console.log(JSON.stringify(post))
+      // console.log(post._id)
       fetch(`${this.baseUrl}/posts/${post._id}`,{
         method: 'PATCH',
         headers: this.headers,
         body: JSON.stringify(post)
+    })
+    }
+
+    deletePost = async (postId) => {
+      // console.log(postId)
+      fetch(`${this.baseUrl}/posts/${postId}`,{
+        method: 'DELETE',
+        headers: this.headers,
     })
     }
 
