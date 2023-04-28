@@ -92,11 +92,12 @@ class Api{
     
 
     // Добавил несколько api запросов 
-    getUserInfo = ()=>{
-      fetch(`${this.baseUrl}/users/me`,{
+    getUserInfo = async ()=>{
+      const response = await fetch(`${this.baseUrl}/users/me`,{
           headers: this.headers
       })
-      .then((response)=> {return response.json()})
+      const userData = await response.json()
+      return userData
     }
     updateUserInfo = () => {
       fetch(`${this.baseUrl}/users/me`,{

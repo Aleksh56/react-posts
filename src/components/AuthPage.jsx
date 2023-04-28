@@ -46,6 +46,12 @@ function AuthPage({ handleUserLogin }) {
     setIsLoginFormShown(!isLoginFormShown)
   }
 
+  const checkIfUserIsAlreadyAuth = () => {
+    if (localStorage.getItem("isAuthenticated") === true) {
+      handleUserLogin(true)
+    }
+  }
+
   return (
     <div className="flex justify-center h-screen">
       <div className="w-1/3 h-screen flex-shrink-0">
