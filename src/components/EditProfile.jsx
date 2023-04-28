@@ -2,22 +2,24 @@ import { useState } from "react"
 import { useSpring, animated, config } from "react-spring"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
+import { BiEditAlt } from "react-icons/bi"
 
-const CreatePost = ({ refreshFlagOnPage }) => {
+const EditProfile = ({ refreshFlagOnPage, userInfo }) => {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
-    title: "",
-    text: "",
-    image: "",
-    tags: [],
+    name:"",
+    about:"",
+    // avatar:"",
+
   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    api.addNewPost(formData)
+    console.log(formData);
+    api.updateUserInfo(formData)
     setShowModal(false)
     refreshFlagOnPage()
-  }
+    }
 
   const modalAnimation = useSpring({
     opacity: showModal ? 1 : 0,
@@ -28,12 +30,11 @@ const CreatePost = ({ refreshFlagOnPage }) => {
 
   return (
     <>
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-sky-500 rounded-lg p-2 text-white font-bold"
-      >
-        Создать пост
-      </button>
+     <button 
+     onClick={()=>setShowModal(true)}
+     className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold">
+            <BiEditAlt />
+     </button>
       {showModal ? (
         <div className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full
          overflow-x-hidden overflow-y-auto">
@@ -41,7 +42,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
             <div className="relavite w-auto my-6 mx-auto max-w-3xl">
               <div className="flex flex-col bg-white rounded-lg p-4 w-[600px] h-auto">
                 <div className="text-3xl flex font-semibold justify-between">
-                  <h3>Создать пост</h3>
+                  <h3>Профиль</h3>
                   <button
                     type="button"
                     className="hover:text-sky-500 "
@@ -55,54 +56,52 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-5 justify-between"
                   >
+                  {/* <input
+                      className=" border-2 border-sky-500 rounded-lg  p-2"
+                      type="text"
+                      placeholder={userInfo.avatar}
+                      name="avatar"
+                      onChange={(e)=> setFormData({...formData, avatar: e.target.value})}
+                      value={formData.avatar}
+                    />
+                    <img src={userInfo.avatar} alt="" /> */}
                     <input
                       className=" border-2 border-sky-500 rounded-lg  p-2"
                       type="text"
-                      placeholder="Ссылка картинки поста"
-                      name="image"
-                      onChange={(e) =>
-                        setFormData({ ...formData, image: e.target.value })
-                      }
-                      value={formData.image}
+                      placeholder={userInfo.name}
+                      name="name"
+                      onChange={(e)=>setFormData({...formData, name: e.target.value})}
+                      value={formData.name}
                     />
                     <input
-                      className="border-2 border-sky-500 rounded-lg  p-2"
+                      disabled
+                      className="border-2 border-sky-500 rounded-lg p-2 disabled: bg-gray-600/20"
                       type="text"
-                      placeholder="Заголовок поста"
-                      name="title"
-                      onChange={(e) =>
-                        setFormData({ ...formData, title: e.target.value })
-                      }
-                      value={formData.title}
+                      name="email"
+                      value={userInfo.email}
                     />
-                    <textarea
-                      className="border-2 border-sky-500 rounded-lg  p-2"
-                      name="text"
-                      rows="10"
-                      placeholder="Текст поста"
-                      onChange={(e) =>
-                        setFormData({ ...formData, text: e.target.value })
-                      }
-                      value={formData.text}
-                    ></textarea>
                     <input
+                    id="about"
                       className="border-2 border-sky-500 rounded-lg p-2"
                       type="text"
-                      placeholder="Теги поста"
-                      name="tags"
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          tags: e.target.value.split(","),
-                        })
-                      }
-                      value={formData.tags}
+                      placeholder={userInfo.about}
+                      name="about"
+                      onChange={(e)=>setFormData({...formData, about: e.target.value})}
+                      value={formData.about}
+                    />
+                    <div className="flex gap-2 justify-end">
+                    <input
+                      onClick={()=>setShowModal(false)}
+                      className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
+                      type="submit"
+                      value="Отмена"
                     />
                     <input
-                      className="bg-sky-500 rounded-lg p-2 text-white font-bold"
+                      className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
                       type="submit"
-                      value="Создать"
+                      value="Изменить"
                     />
+                    </div>
                   </form>
                 </div>
               </div>
@@ -114,4 +113,4 @@ const CreatePost = ({ refreshFlagOnPage }) => {
   )
 }
 
-export default CreatePost
+export default EditProfile
