@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react"
 import { api } from "../api/api"
 import { BiExit, BiEditAlt } from "react-icons/bi"
+import EditProfile from "./EditProfile"
 
-const Header = ({ handleLogout }) => {
+const Header = ({ handleLogout, refreshFlagOnPage }) => {
   const [userInfo, setUserInfo] = useState({})
-
   useEffect(() => {
     const fetchUserData = async () => {
       const userData = await api.getUserInfo()
       setUserInfo(userData)
       window.localStorage.setItem("userData", JSON.stringify(userData))
     }
-
     fetchUserData()
   }, [])
 
@@ -40,9 +39,10 @@ const Header = ({ handleLogout }) => {
               <p>{userInfo.email}</p>
             </div>
           </div>
-          <button className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold">
-            <BiEditAlt />
-          </button>
+          <EditProfile 
+          userInfo = {userInfo}
+          refreshFlagOnPage={refreshFlagOnPage}
+          />
           <button
             className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold"
             onClick={handleLogout}

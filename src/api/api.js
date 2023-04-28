@@ -99,12 +99,15 @@ class Api{
       const userData = await response.json()
       return userData
     }
-    updateUserInfo = () => {
-      fetch(`${this.baseUrl}/users/me`,{
+    updateUserInfo = async(updUser) => {
+        await fetch(`${this.baseUrl}/users/me`,{
         method: 'PATCH',
         headers: this.headers,
-    }).then((response)=> {return response.json()})
+        body: JSON.stringify(updUser)
+    })
     }
+
+
     getAllPosts = async () =>{
       const fetchPosts = await fetch(`${this.baseUrl}/posts`,{
         method: "GET",

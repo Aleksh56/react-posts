@@ -29,7 +29,7 @@ const Post = ({ postInfo, refreshPosts }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer relative focus:outline-none">
+    <div className="bg-white rounded-lg shadow-lg hover:shadow-sky-500 overflow-hidden cursor-pointer relative focus:outline-none">
       {/* Post author */}
       <div className="px-6 py-4">
         <div className="flex items-center">
