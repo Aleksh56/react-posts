@@ -4,22 +4,21 @@ import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
 import { BiEditAlt } from "react-icons/bi"
 
-const EditProfile = ({ refreshFlagOnPage, userInfo }) => {
+const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
-    name:"",
-    about:"",
+    name: "",
+    about: "",
     // avatar:"",
-
   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
+    console.log(formData)
     api.updateUserInfo(formData)
     setShowModal(false)
-    refreshFlagOnPage()
-    }
+    refreshPostsOnPage()
+  }
 
   const modalAnimation = useSpring({
     opacity: showModal ? 1 : 0,
@@ -30,14 +29,17 @@ const EditProfile = ({ refreshFlagOnPage, userInfo }) => {
 
   return (
     <>
-     <button 
-     onClick={()=>setShowModal(true)}
-     className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold">
-            <BiEditAlt />
-     </button>
+      <button
+        onClick={() => setShowModal(true)}
+        className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold"
+      >
+        <BiEditAlt />
+      </button>
       {showModal ? (
-        <div className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full
-         overflow-x-hidden overflow-y-auto">
+        <div
+          className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full
+         overflow-x-hidden overflow-y-auto"
+        >
           <animated.div style={modalAnimation}>
             <div className="relavite w-auto my-6 mx-auto max-w-3xl">
               <div className="flex flex-col bg-white rounded-lg p-4 w-[600px] h-auto">
@@ -56,7 +58,7 @@ const EditProfile = ({ refreshFlagOnPage, userInfo }) => {
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-5 justify-between"
                   >
-                  {/* <input
+                    {/* <input
                       className=" border-2 border-sky-500 rounded-lg  p-2"
                       type="text"
                       placeholder={userInfo.avatar}
@@ -70,7 +72,9 @@ const EditProfile = ({ refreshFlagOnPage, userInfo }) => {
                       type="text"
                       placeholder={userInfo.name}
                       name="name"
-                      onChange={(e)=>setFormData({...formData, name: e.target.value})}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       value={formData.name}
                     />
                     <input
@@ -81,26 +85,28 @@ const EditProfile = ({ refreshFlagOnPage, userInfo }) => {
                       value={userInfo.email}
                     />
                     <input
-                    id="about"
+                      id="about"
                       className="border-2 border-sky-500 rounded-lg p-2"
                       type="text"
                       placeholder={userInfo.about}
                       name="about"
-                      onChange={(e)=>setFormData({...formData, about: e.target.value})}
+                      onChange={(e) =>
+                        setFormData({ ...formData, about: e.target.value })
+                      }
                       value={formData.about}
                     />
                     <div className="flex gap-2 justify-end">
-                    <input
-                      onClick={()=>setShowModal(false)}
-                      className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
-                      type="submit"
-                      value="Отмена"
-                    />
-                    <input
-                      className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
-                      type="submit"
-                      value="Изменить"
-                    />
+                      <input
+                        onClick={() => setShowModal(false)}
+                        className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
+                        type="submit"
+                        value="Отмена"
+                      />
+                      <input
+                        className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
+                        type="submit"
+                        value="Изменить"
+                      />
                     </div>
                   </form>
                 </div>

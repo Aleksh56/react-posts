@@ -7,6 +7,7 @@ import {
 } from "react-router-dom"
 import MainPage from "./components/MainPage"
 import AuthPage from "./components/AuthPage"
+import PostInfo from "./components/PostInfo"
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -50,6 +51,16 @@ const App = () => {
           element={
             isLoggedIn ? (
               <MainPage onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route
+          path="/post/:postId"
+          element={
+            isLoggedIn ? (
+              <PostInfo onLogout={handleLogout} />
             ) : (
               <Navigate to="/" replace />
             )

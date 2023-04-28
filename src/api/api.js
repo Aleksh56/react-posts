@@ -144,6 +144,15 @@ class Api{
     })
     }
 
+    getInfoAboutPostById = async (postId) => {
+      const fetchPostByIdInfo = await fetch(`${this.baseUrl}/posts/${postId}`,{
+        method: 'GET',
+        headers: this.headers,
+    })
+    const postInfo = await fetchPostByIdInfo.json()
+    return postInfo
+    }
+
     
 
 }

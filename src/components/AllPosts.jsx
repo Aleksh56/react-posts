@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { api } from "../api/api"
 import Post from "./Post"
 import { FaSpinner } from "react-icons/fa"
@@ -27,16 +28,18 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
 
   const postItems = posts
     ? posts.map((post) => (
-        <Post
-          key={post._id}
-          postInfo={post}
-          refreshPosts={refreshPostsOnPage}
-        />
+        <Link to={`/post/${post._id}`} key={post._ids}>
+          <Post
+            key={post._id}
+            postInfo={post}
+            refreshPosts={refreshPostsOnPage}
+          />
+        </Link>
       ))
     : null
 
   return (
-    <div className="container py-8 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="container py-8 auto-rows-auto mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {postItems}
     </div>
   )
