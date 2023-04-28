@@ -8,7 +8,8 @@ const Post = ({ postInfo, refreshPosts }) => {
     postInfo
 
   const handleLikeClick = async (event) => {
-    console.log(event)
+    event.stopPropagation()
+    event.preventDefault()
     setIsLiked(!isLiked)
     !isLiked ? likes.push("like)") : likes.pop()
     // Todo - оптравить изменения в API

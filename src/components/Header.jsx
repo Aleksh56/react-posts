@@ -12,7 +12,7 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
       window.localStorage.setItem("userData", JSON.stringify(userData))
     }
     fetchUserData()
-  }, [])
+  }, [refreshPostsOnPage])
 
   return (
     <header className="bg-red-400">
