@@ -1,9 +1,9 @@
 import { useState } from "react"
+import { useSpring, animated, config } from "react-spring"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
 
-//cоздал открывашку модалки
-export default function CreatePost({ refreshFlagOnPage }) {
+const CreatePost = ({ refreshFlagOnPage }) => {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
     title: "",
@@ -19,6 +19,13 @@ export default function CreatePost({ refreshFlagOnPage }) {
     refreshFlagOnPage()
   }
 
+  const modalAnimation = useSpring({
+    opacity: showModal ? 1 : 0,
+    transform: showModal ? "translateY(0%)" : "translateY(-50%)",
+    delay: 10,
+    config: config.gentle,
+  })
+
   return (
     <>
       <button
@@ -28,8 +35,8 @@ export default function CreatePost({ refreshFlagOnPage }) {
         Создать пост
       </button>
       {showModal ? (
-        <>
-          <div className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full overflow-x-hidden overflow-y-auto">
+        <div className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full overflow-x-hidden overflow-y-auto">
+          <animated.div style={modalAnimation}>
             <div className="relavite w-auto my-6 mx-auto max-w-3xl">
               <div className="flex flex-col bg-white rounded-lg p-4 w-[600px] h-auto">
                 <div className="text-3xl flex font-semibold justify-between">
@@ -99,9 +106,11 @@ export default function CreatePost({ refreshFlagOnPage }) {
                 </div>
               </div>
             </div>
-          </div>
-        </>
+          </animated.div>
+        </div>
       ) : null}
     </>
   )
 }
+
+export default CreatePost
