@@ -113,13 +113,16 @@ class Api{
       const allPosts = await fetchPosts.json()
       return allPosts
     }
-    addNewPost = (newPost) =>{
-      fetch(`${this.baseUrl}/posts`,{
+
+    addNewPost = async (newPost) =>{
+        await fetch(`${this.baseUrl}/posts`,{
         method: 'POST',
         headers: this.headers,
         body: JSON.stringify(newPost),
     })
-      .then((response)=> {return response.json()})
+    
+    // .then((response)=>{ console.log(response.json())
+    //   })
     }
 
     

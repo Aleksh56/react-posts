@@ -1,4 +1,4 @@
-import Modal from "./Modal"
+import CreatePost from "./CreatePost"
 
 const Hero = () => {
   return (
@@ -14,7 +14,7 @@ const Hero = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Reprehenderit, id blanditiis. Minus eligendi ducimus ipsa?
             </p>
-            <Modal />
+            <CreatePost />
           </div>
         </div>
       </div>

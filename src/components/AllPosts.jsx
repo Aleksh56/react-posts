@@ -13,7 +13,9 @@ const AllPosts = () => {
     fetchAllPostFromApi()
   }, [])
   // Тут нужно написать скелет поста и через posts.map() => <Post.jsx /> сгенерировать все посты
-  return <div>posts</div>
+  return (
+  <div>posts</div>
+  )
 }
 
 export default AllPosts
