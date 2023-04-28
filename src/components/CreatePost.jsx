@@ -35,8 +35,8 @@ const CreatePost = ({ refreshFlagOnPage }) => {
         Создать пост
       </button>
       {showModal ? (
-        <div className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full
-         overflow-x-hidden overflow-y-auto">
+        <div className="flex justify-center items-center fixed z-50 top-0 right-0 bg-slate-950/50 w-full h-full
+         overflow-x-hidden overflow-y-auto ">
           <animated.div style={modalAnimation}>
             <div className="relavite w-auto my-6 mx-auto max-w-3xl">
               <div className="flex flex-col bg-white rounded-lg p-4 w-[600px] h-auto">

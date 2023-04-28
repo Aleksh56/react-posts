@@ -106,6 +106,13 @@ class Api{
         body: JSON.stringify(updUser)
     })
     }
+    updateUserAvatar = async(newAvatar) => {
+      await fetch(`${this.baseUrl}/users/me/avatar`,{
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify(newAvatar)
+  })
+  }
 
 
     getAllPosts = async () =>{
@@ -135,6 +142,7 @@ class Api{
         body: JSON.stringify(post)
     })
     }
+
 
     deletePost = async (postId) => {
       // console.log(postId)

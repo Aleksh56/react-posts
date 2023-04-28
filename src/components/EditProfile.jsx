@@ -6,15 +6,17 @@ import { BiEditAlt } from "react-icons/bi"
 
 const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
   const [showModal, setShowModal] = useState(false)
+  const [avatar,setAvatar] = useState({avatar:""})
   const [formData, setFormData] = useState({
     name: "",
     about: "",
-    // avatar:"",
   })
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
+    api.updateUserAvatar(avatar)
     api.updateUserInfo(formData)
     setShowModal(false)
     refreshPostsOnPage()
@@ -56,17 +58,17 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
                 <div className="py-5">
                   <form
                     onSubmit={handleSubmit}
-                    className="flex flex-col gap-5 justify-between"
+                    className="flex flex-col gap-5 justify-between "
                   >
-                    {/* <input
+                    <input
                       className=" border-2 border-sky-500 rounded-lg  p-2"
                       type="text"
                       placeholder={userInfo.avatar}
                       name="avatar"
-                      onChange={(e)=> setFormData({...formData, avatar: e.target.value})}
-                      value={formData.avatar}
+                      onChange={(e)=> setAvatar({...avatar, avatar: e.target.value})}
+                      value={avatar.avatar}
                     />
-                    <img src={userInfo.avatar} alt="" /> */}
+                    <img className=" rounded-full w-[250px] h-[250px] self-center " src={avatar.avatar} alt="" />
                     <input
                       className=" border-2 border-sky-500 rounded-lg  p-2"
                       type="text"
