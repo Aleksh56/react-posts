@@ -120,9 +120,17 @@ class Api{
         headers: this.headers,
         body: JSON.stringify(newPost),
     })
-    
-    // .then((response)=>{ console.log(response.json())
-    //   })
+    }
+
+    updatePostInfo = async (post) => {
+      console.log(post)
+      console.log(JSON.stringify(post))
+      console.log(post._id)
+      fetch(`${this.baseUrl}/posts/${post._id}`,{
+        method: 'PATCH',
+        headers: this.headers,
+        body: JSON.stringify(post)
+    })
     }
 
     

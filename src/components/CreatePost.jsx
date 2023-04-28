@@ -1,22 +1,22 @@
 import { useState } from "react"
-import { BiX } from "react-icons/bi";
-import { api } from "../api/api";
+import { BiX } from "react-icons/bi"
+import { api } from "../api/api"
 
 //cоздал открывашку модалки
-export default function CreatePost() {
+export default function CreatePost({ refreshFlagOnPage }) {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
-    title: "", 
-    text: "", 
-    image: "", 
-    tags: [], 
+    title: "",
+    text: "",
+    image: "",
+    tags: [],
   })
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
     api.addNewPost(formData)
     setShowModal(false)
+    refreshFlagOnPage()
   }
 
   return (
@@ -29,10 +29,8 @@ export default function CreatePost() {
       </button>
       {showModal ? (
         <>
-          <div
-            className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full overflow-x-hidden overflow-y-auto">
-            <div
-              className="relavite w-auto my-6 mx-auto max-w-3xl">
+          <div className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full overflow-x-hidden overflow-y-auto">
+            <div className="relavite w-auto my-6 mx-auto max-w-3xl">
               <div className="flex flex-col bg-white rounded-lg p-4 w-[600px] h-auto">
                 <div className="text-3xl flex font-semibold justify-between">
                   <h3>Создать пост</h3>
@@ -47,13 +45,16 @@ export default function CreatePost() {
                 <div className="py-5">
                   <form
                     onSubmit={handleSubmit}
-                    className="flex flex-col gap-5 justify-between">
+                    className="flex flex-col gap-5 justify-between"
+                  >
                     <input
                       className=" border-2 border-sky-500 rounded-lg  p-2"
                       type="text"
                       placeholder="Ссылка картинки поста"
                       name="image"
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, image: e.target.value })
+                      }
                       value={formData.image}
                     />
                     <input
@@ -61,7 +62,9 @@ export default function CreatePost() {
                       type="text"
                       placeholder="Заголовок поста"
                       name="title"
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, title: e.target.value })
+                      }
                       value={formData.title}
                     />
                     <textarea
@@ -69,7 +72,9 @@ export default function CreatePost() {
                       name="text"
                       rows="10"
                       placeholder="Текст поста"
-                      onChange={(e) => setFormData({ ...formData, text: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, text: e.target.value })
+                      }
                       value={formData.text}
                     ></textarea>
                     <input
@@ -77,11 +82,18 @@ export default function CreatePost() {
                       type="text"
                       placeholder="Теги поста"
                       name="tags"
-                      onChange={(e) => setFormData({ ...formData, tags: e.target.value.split(",") })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          tags: e.target.value.split(","),
+                        })
+                      }
                       value={formData.tags}
                     />
                     <input
-                      className="bg-sky-500 rounded-lg p-2 text-white font-bold" type="submit" value="Создать"
+                      className="bg-sky-500 rounded-lg p-2 text-white font-bold"
+                      type="submit"
+                      value="Создать"
                     />
                   </form>
                 </div>
