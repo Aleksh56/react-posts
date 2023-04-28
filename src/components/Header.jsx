@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { api } from "../api/api"
+import Logo from "../assets/logo.png"
 import { BiExit, BiEditAlt } from "react-icons/bi"
 import EditProfile from "./EditProfile"
+import { Link } from "react-router-dom"
 
 const Header = ({ handleLogout, refreshPostsOnPage }) => {
   const [userInfo, setUserInfo] = useState({})
@@ -18,10 +20,12 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
     <header className="bg-red-400">
       <div className="container mx-auto flex items-center justify-between py-4 w-full">
         <div className="header__logo flex items-center justify-center">
-          <img src="#" alt="Main logo" />
-          <a href="#">
+          <Link to="/">
+            <img src={Logo} alt="Main logo" width="60px" />
+          </Link>
+          <Link to="/">
             <h1 className="ml-3">Реактивные посты</h1>
-          </a>
+          </Link>
         </div>
         <div className="header__signin flex items-center">
           <div className="header__signin-info flex items-center justify-center">

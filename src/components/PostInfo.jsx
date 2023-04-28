@@ -15,21 +15,25 @@ const PostInfo = ({ onLogout }) => {
       const browserUrl = window.location.href
       const postId = browserUrl.split("/").pop()
       const fetchedPostInfo = await api.getInfoAboutPostById(postId)
+      console.log(postId)
       setPostInfo(fetchedPostInfo)
     }
     handlePostInfoById()
   }, [])
 
+  // Без дефолтных данных выбивает ошибку - пофиксить
+
   const {
-    author = {},
+    author = "avtor",
     comments = [],
     created_at = "",
     image = "",
     likes = [],
-    tags = [],
+    tags = ["11"],
     text = "",
     title = "",
   } = postInfo
+
   return (
     <>
       <Header handleLogout={onLogout} />
@@ -75,7 +79,7 @@ const PostInfo = ({ onLogout }) => {
                 {tags[0].split(" ").map((tag) => (
                   <div
                     key={tag}
-                    className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                    className="bg-sky-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
                     style={{ maxWidth: "calc(100% - 1rem)" }}
                   >
                     {`#${tag}`}

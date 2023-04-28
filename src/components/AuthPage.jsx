@@ -10,11 +10,21 @@ function AuthPage({ handleUserLogin }) {
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("")
   const [isLoginFormShown, setIsLoginFormShown] = useState(false)
   const [isResetFormShown, setIsResetFormShown] = useState(false)
+  const specialCharacters = '!@#$%^&*(),.?":'
 
   // Todo - запросы к API должны быть в отдельном классе API (папка для него уже создана)
   // Todo - вынести формы по отдельным файлам и ипортировать их сюда
 
   // Note - не могу вынести в отдельный файл формы. Туплю и не понимаю как менять стейты на 2 уровня выше, получаются костыли. Пока оставлю так, чтобы был рабочий прототип
+
+  const handleRegisterCheck = () => {
+    if (registerPassword.length < 6) {
+      alert("Пароль должен содержать больше 6 символов !")
+      return false
+    } else {
+      return true
+    }
+  }
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault()
@@ -30,11 +40,15 @@ function AuthPage({ handleUserLogin }) {
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault()
-    try {
-      const regResult = await api.handleRegisterSubmit(event)
-      regResult === 1 ? setIsLoginFormShown(true) : setIsLoginFormShown(false)
-    } catch (error) {
-      console.log("Ошибка - ", error) // Сдесь добавим модалку сверху и будем ее выводить
+    if (handleRegisterCheck()) {
+      try {
+        const regResult = await api.handleRegisterSubmit(event)
+        regResult === 1 ? setIsLoginFormShown(true) : setIsLoginFormShown(false)
+      } catch (error) {
+        console.log("Ошибка - ", error) // Сдесь добавим модалку сверху и будем ее выводить
+      }
+    } else {
+      console.log(1)
     }
   }
 
@@ -72,7 +86,7 @@ function AuthPage({ handleUserLogin }) {
                     <input
                       className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="login-username"
-                      type="text"
+                      type="email"
                       placeholder="Введите e-mail"
                       value={loginEmail}
                       onChange={(event) => setLoginEmail(event.target.value)}
@@ -134,7 +148,7 @@ function AuthPage({ handleUserLogin }) {
                     <input
                       className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="register-username"
-                      type="text"
+                      type="email"
                       placeholder="Введите e-mail"
                       value={registerEmail}
                       onChange={(event) => setRegisterEmail(event.target.value)}
