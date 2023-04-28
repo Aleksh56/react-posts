@@ -12,10 +12,7 @@ const MainPage = ({ onLogout }) => {
   }
   return (
     <>
-      <Header 
-      handleLogout={onLogout} 
-      refreshPostsOnPage={refreshPostsOnPage}
-      />
+      <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
       <main>
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
         <AllPosts

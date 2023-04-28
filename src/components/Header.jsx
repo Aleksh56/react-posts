@@ -3,7 +3,7 @@ import { api } from "../api/api"
 import { BiExit, BiEditAlt } from "react-icons/bi"
 import EditProfile from "./EditProfile"
 
-const Header = ({ handleLogout, refreshFlagOnPage }) => {
+const Header = ({ handleLogout, refreshPostsOnPage }) => {
   const [userInfo, setUserInfo] = useState({})
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,9 +39,9 @@ const Header = ({ handleLogout, refreshFlagOnPage }) => {
               <p>{userInfo.email}</p>
             </div>
           </div>
-          <EditProfile 
-          userInfo = {userInfo}
-          refreshFlagOnPage={refreshFlagOnPage}
+          <EditProfile
+            refreshPostsOnPage={refreshPostsOnPage}
+            userInfo={userInfo}
           />
           <button
             className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold"
