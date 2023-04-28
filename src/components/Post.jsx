@@ -58,6 +58,7 @@ const Post = ({ postInfo, refreshPosts }) => {
             <div
               key={tag}
               className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              style={{ maxWidth: "calc(100% - 1rem)" }}
             >
               {`#${tag}`}
             </div>
