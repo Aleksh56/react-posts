@@ -113,8 +113,6 @@ class Api{
       body: JSON.stringify(newAvatar)
   })
   }
-
-
     getAllPosts = async () =>{
       const fetchPosts = await fetch(`${this.baseUrl}/posts`,{
         method: "GET",
