@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useCallback, useMemo } from "react"
 import { useSpring, animated, config } from "react-spring"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
+import styles from "../styles"
 
 const CreatePost = ({ refreshFlagOnPage }) => {
   const [showModal, setShowModal] = useState(false)
@@ -12,19 +13,32 @@ const CreatePost = ({ refreshFlagOnPage }) => {
     tags: [],
   })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    api.addNewPost(formData)
-    setShowModal(false)
-    refreshFlagOnPage()
-  }
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault()
+      try {
+        await api.addNewPost(formData)
+        setShowModal(false)
+        refreshFlagOnPage()
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [formData, refreshFlagOnPage]
+  )
 
-  const modalAnimation = useSpring({
-    opacity: showModal ? 1 : 0,
-    transform: showModal ? "translateY(0%)" : "translateY(-50%)",
-    delay: 10,
-    config: config.gentle,
-  })
+  const modalAnimation = useMemo(
+    () =>
+      useSpring({
+        opacity: showModal ? 1 : 0,
+        transform: showModal ? "translateY(0%)" : "translateY(-50%)",
+        delay: 10,
+        config: config.gentle,
+      }),
+    [showModal]
+  )
+
+  // Todo -  Нужно вынести input'ы в отдельный компонент, так как он переиспользуется
 
   return (
     <>
@@ -35,8 +49,9 @@ const CreatePost = ({ refreshFlagOnPage }) => {
         Создать пост
       </button>
       {showModal ? (
-        <div className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full
-         overflow-x-hidden overflow-y-auto">
+        <div
+          className={`${styles.flexRowFullCenter} ${styles.createPostContainer}`}
+        >
           <animated.div style={modalAnimation}>
             <div className="relavite w-auto my-6 mx-auto max-w-3xl">
               <div className="flex flex-col bg-white rounded-lg p-4 w-[600px] h-auto">
@@ -56,7 +71,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                     className="flex flex-col gap-5 justify-between"
                   >
                     <input
-                      className=" border-2 border-sky-500 rounded-lg  p-2"
+                      className={styles.createPostInput}
                       type="text"
                       placeholder="Ссылка картинки поста"
                       name="image"
@@ -66,7 +81,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                       value={formData.image}
                     />
                     <input
-                      className="border-2 border-sky-500 rounded-lg  p-2"
+                      className={styles.createPostInput}
                       type="text"
                       placeholder="Заголовок поста"
                       name="title"
@@ -76,7 +91,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                       value={formData.title}
                     />
                     <textarea
-                      className="border-2 border-sky-500 rounded-lg  p-2"
+                      className={styles.createPostInput}
                       name="text"
                       rows="10"
                       placeholder="Текст поста"
@@ -86,7 +101,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                       value={formData.text}
                     ></textarea>
                     <input
-                      className="border-2 border-sky-500 rounded-lg p-2"
+                      className={styles.createPostInput}
                       type="text"
                       placeholder="Теги поста"
                       name="tags"

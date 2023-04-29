@@ -5,7 +5,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="flex items-center justify-center py-3 bg-slate-600">
+    <footer className="flex items-center justify-center py-3 bg-green-300">
       <div className="footer__content flex items-center flex-col text-white">
         <p>
           Авторы проекта:{" "}

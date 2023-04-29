@@ -48,7 +48,7 @@ const PostInfo = ({ onLogout }) => {
               Back
             </Link>
           </div>
-          <div className="post__content flex items-start justify-between">
+          <div className="post__content flex items-start justify-between py-3">
             <img
               src={image}
               alt="Post"

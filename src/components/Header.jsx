@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { api } from "../api/api"
 import Logo from "../assets/logo.png"
-import { BiExit, BiEditAlt } from "react-icons/bi"
 import EditProfile from "./EditProfile"
+import { api } from "../api/api"
+import { BiExit, BiEditAlt } from "react-icons/bi"
 import { Link } from "react-router-dom"
 
 const Header = ({ handleLogout, refreshPostsOnPage }) => {
@@ -17,7 +17,7 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
   }, [refreshPostsOnPage])
 
   return (
-    <header className="bg-red-400">
+    <header className="bg-blue-300">
       <div className="container mx-auto flex items-center justify-between py-4 w-full">
         <div className="header__logo flex items-center justify-center">
           <Link to="/">
