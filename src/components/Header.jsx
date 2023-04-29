@@ -29,13 +29,11 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
         </div>
         <div className="header__signin flex items-center">
           <div className="header__signin-info flex items-center justify-center">
-            <div className="header__user-avatar">
+            <div className="header__user-avatar ">
               <img
                 src={userInfo.avatar}
                 alt="UserAvatar"
-                width="50px"
-                height="50px"
-                className="rounded-full mr-4"
+                className="w-10 h-10 rounded-full mr-4"
               />
             </div>
             <div className="header__user-about">

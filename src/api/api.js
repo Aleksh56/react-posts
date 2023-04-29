@@ -99,8 +99,8 @@ class Api{
       await fetch(`${this.baseUrl}/users/me`, {
         method: "PATCH",
         headers: this.headers,
-        body: JSON.stringify(updUser),
-      });
+        body: JSON.stringify(updUser)
+    })
     }
 
     async getAllPosts() {
@@ -126,6 +126,7 @@ class Api{
         body: JSON.stringify(post),
       });
     }
+
 
     async deletePost(postId) {
       await fetch(`${this.baseUrl}/posts/${postId}`, {

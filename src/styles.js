@@ -5,7 +5,7 @@ const styles = {
 
     fetchLoader: "animate-spin h-8 w-8 text-gray-500",
     postsGridContainer: "container py-8 auto-rows-auto mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4",
-    createPostContainer: "absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full overflow-x-hidden overflow-y-auto",
+    createPostContainer: "fixed z-50 top-0 right-0 bg-slate-950/50 w-full h-full overflow-x-hidden overflow-y-auto",
     createPostInput: "border-2 border-sky-500 rounded-lg  p-2"
 }
 
