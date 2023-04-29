@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { api } from "../api/api"
 import "../index.css"
+import styles from "../styles"
 
 function AuthPage({ handleUserLogin }) {
   const [loginEmail, setLoginEmail] = useState("")
@@ -67,9 +68,9 @@ function AuthPage({ handleUserLogin }) {
   }
 
   return (
-    <div className="flex justify-center h-screen">
+    <div className={`h-screen ${styles.flexRowItemsCenter}`}>
       <div className="w-1/3 h-screen flex-shrink-0">
-        <div className="flex flex-col items-center justify-center h-full">
+        <div className={`h-full ${styles.flexColFullCenter}`}>
           {!isResetFormShown ? (
             isLoginFormShown ? (
               <>

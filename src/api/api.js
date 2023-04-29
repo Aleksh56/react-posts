@@ -11,14 +11,12 @@ const config = {
       "Content-Type": "application/json",
       authorization: token,
   },
-  group: "ep" 
 }
 
 class Api{
     constructor(data){
       this.baseUrl = data.baseUrl;
       this.headers = data.headers;
-      this.group = data.group
     }
 
     handleResetPassword = (event) => {
@@ -89,23 +87,22 @@ class Api{
       });
     };
     
-    
-
-    // Добавил несколько api запросов 
-    getUserInfo = async ()=>{
-      const response = await fetch(`${this.baseUrl}/users/me`,{
-          headers: this.headers
-      })
-      const userData = await response.json()
-      return userData
+    async getUserInfo() {
+      const response = await fetch(`${this.baseUrl}/users/me`, {
+        headers: this.headers,
+      });
+      const userData = await response.json();
+      return userData;
     }
-    updateUserInfo = async(updUser) => {
-        await fetch(`${this.baseUrl}/users/me`,{
-        method: 'PATCH',
+
+    async updateUserInfo(updUser) {
+      await fetch(`${this.baseUrl}/users/me`, {
+        method: "PATCH",
         headers: this.headers,
         body: JSON.stringify(updUser)
     })
     }
+<<<<<<< HEAD
     updateUserAvatar = async(newAvatar) => {
       await fetch(`${this.baseUrl}/users/me/avatar`,{
       method: 'PATCH',
@@ -120,46 +117,48 @@ class Api{
     })
       const allPosts = await fetchPosts.json()
       return allPosts
+=======
+
+    async getAllPosts() {
+      const response = await fetch(`${this.baseUrl}/posts`, {
+        headers: this.headers,
+      });
+      const allPosts = await response.json();
+      return allPosts;
+>>>>>>> origin/master
     }
 
-    addNewPost = async (newPost) =>{
-        await fetch(`${this.baseUrl}/posts`,{
-        method: 'POST',
+    async addNewPost(newPost) {
+      await fetch(`${this.baseUrl}/posts`, {
+        method: "POST",
         headers: this.headers,
         body: JSON.stringify(newPost),
-    })
+      });
     }
 
-    updatePostInfo = async (post) => {
-      // console.log(post)
-      // console.log(JSON.stringify(post))
-      // console.log(post._id)
-      fetch(`${this.baseUrl}/posts/${post._id}`,{
-        method: 'PATCH',
+    async updatePostInfo(post) {
+      await fetch(`${this.baseUrl}/posts/${post._id}`, {
+        method: "PATCH",
         headers: this.headers,
-        body: JSON.stringify(post)
-    })
+        body: JSON.stringify(post),
+      });
     }
 
 
-    deletePost = async (postId) => {
-      // console.log(postId)
-      fetch(`${this.baseUrl}/posts/${postId}`,{
-        method: 'DELETE',
+    async deletePost(postId) {
+      await fetch(`${this.baseUrl}/posts/${postId}`, {
+        method: "DELETE",
         headers: this.headers,
-    })
+      });
     }
 
-    getInfoAboutPostById = async (postId) => {
-      const fetchPostByIdInfo = await fetch(`${this.baseUrl}/posts/${postId}`,{
-        method: 'GET',
-        headers: this.headers,
-    })
-    const postInfo = await fetchPostByIdInfo.json()
-    return postInfo
+    async getInfoAboutPostById(postId) {
+      const response = await fetch(`${this.baseUrl}/posts/${postId}`, {
+        method: "GET",
+        headers,
+      });
+      const postInfo = await response.json();
+      return postInfo;
     }
-
-    
-
 }
 export const api = new Api(config)

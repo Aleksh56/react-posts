@@ -20,7 +20,9 @@ const Post = ({ postInfo, refreshPosts }) => {
     }
   }
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = async (event) => {
+    event.stopPropagation()
+    event.preventDefault()
     try {
       await api.deletePost(postInfo._id)
       refreshPosts()
