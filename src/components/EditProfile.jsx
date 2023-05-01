@@ -37,7 +37,7 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
       >
         <BiEditAlt />
       </button>
-      {showModal ? (
+      {showModal && (
         <div
           className="flex justify-center items-center absolute z-50 top-0 right-0 bg-slate-950/50 w-full h-full
          overflow-x-hidden overflow-y-auto"
@@ -116,7 +116,7 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
             </div>
           </animated.div>
         </div>
-      ) : null}
+      )}
     </>
   )
 }

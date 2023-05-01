@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react"
+import { useState, useCallback} from "react"
 import { useSpring, animated, config } from "react-spring"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
@@ -27,16 +27,13 @@ const CreatePost = ({ refreshFlagOnPage }) => {
     [formData, refreshFlagOnPage]
   )
 
-  const modalAnimation = useMemo(
-    () =>
-      useSpring({
-        opacity: showModal ? 1 : 0,
-        transform: showModal ? "translateY(0%)" : "translateY(-50%)",
-        delay: 10,
-        config: config.gentle,
-      }),
-    [showModal]
-  )
+  const modalAnimation =  useSpring({
+      opacity: showModal ? 1 : 0,
+      transform: showModal ? "translateY(0%)" : "translateY(-50%)",
+      delay: 10,
+      config: config.gentle,
+    })
+      
 
   // Todo -  Нужно вынести input'ы в отдельный компонент, так как он переиспользуется
 
@@ -48,7 +45,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
       >
         Создать пост
       </button>
-      {showModal ? (
+      {showModal && (
         <div
           className={`${styles.flexRowFullCenter} ${styles.createPostContainer}`}
         >
@@ -124,7 +121,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
             </div>
           </animated.div>
         </div>
-      ) : null}
+      )}
     </>
   )
 }

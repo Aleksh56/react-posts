@@ -102,22 +102,6 @@ class Api{
         body: JSON.stringify(updUser)
     })
     }
-<<<<<<< HEAD
-    updateUserAvatar = async(newAvatar) => {
-      await fetch(`${this.baseUrl}/users/me/avatar`,{
-      method: 'PATCH',
-      headers: this.headers,
-      body: JSON.stringify(newAvatar)
-  })
-  }
-    getAllPosts = async () =>{
-      const fetchPosts = await fetch(`${this.baseUrl}/posts`,{
-        method: "GET",
-        headers: this.headers
-    })
-      const allPosts = await fetchPosts.json()
-      return allPosts
-=======
 
     async getAllPosts() {
       const response = await fetch(`${this.baseUrl}/posts`, {
@@ -125,7 +109,6 @@ class Api{
       });
       const allPosts = await response.json();
       return allPosts;
->>>>>>> origin/master
     }
 
     async addNewPost(newPost) {
@@ -144,7 +127,7 @@ class Api{
       });
     }
 
-
+    
     async deletePost(postId) {
       await fetch(`${this.baseUrl}/posts/${postId}`, {
         method: "DELETE",
@@ -155,10 +138,37 @@ class Api{
     async getInfoAboutPostById(postId) {
       const response = await fetch(`${this.baseUrl}/posts/${postId}`, {
         method: "GET",
-        headers,
+        headers:this.headers,
       });
       const postInfo = await response.json();
       return postInfo;
     }
+
+    async likePostRequest(postId) {
+      try {
+        const response = await fetch(`${this.baseUrl}/posts/likes/${postId._id}`, 
+        { method: 'PUT' ,
+          headers:this.headers,
+      });
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Ошибка:', error);
+      }
+    }
+    async removeLikeRequest(postId) {
+      try {
+        const response = await fetch(`${this.baseUrl}/posts/likes/${postId._id}`, { 
+          method: 'DELETE',
+          headers: this.headers,
+        });
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Ошибка:', error);
+      }
+    }
+    
+    
 }
 export const api = new Api(config)
