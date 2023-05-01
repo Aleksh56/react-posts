@@ -102,7 +102,13 @@ class Api{
         body: JSON.stringify(updUser)
     })
     }
-
+    async updateUserAvatar(updAvatar){
+      await fetch(`${this.baseUrl}/users/me/avatar`, {
+        method: "PATCH",
+        headers: this.headers,
+        body: JSON.stringify(updAvatar)
+    })
+    }
     async getAllPosts() {
       const response = await fetch(`${this.baseUrl}/posts`, {
         headers: this.headers,

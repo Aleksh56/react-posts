@@ -110,11 +110,19 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                       }
                       value={formData.tags}
                     />
-                    <input
-                      className="bg-sky-500 rounded-lg p-2 text-white font-bold"
-                      type="submit"
-                      value="Создать"
-                    />
+                    <div className="flex gap-2 justify-end">
+                      <input
+                        onClick={() => setShowModal(false)}
+                        className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
+                        type="submit"
+                        value="Отмена"
+                      />
+                      <input
+                        className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
+                        type="submit"
+                        value="Изменить"
+                      />
+                    </div>
                   </form>
                 </div>
               </div>

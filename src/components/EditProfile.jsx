@@ -1,26 +1,31 @@
-import { useState } from "react"
-import { useSpring, animated, config } from "react-spring"
+import { useState, useCallback } from "react"
+import { useSpring, animated, config, update } from "react-spring"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
 import { BiEditAlt } from "react-icons/bi"
 
 const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
   const [showModal, setShowModal] = useState(false)
-  const [avatar,setAvatar] = useState({avatar:""})
+  const [avatar, setAvatar] = useState({ avatar: "" })
   const [formData, setFormData] = useState({
     name: "",
     about: "",
-  })
-  
+  });
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault()
+      try {
+        await api.updateUserAvatar(avatar)
+        await api.updateUserInfo(formData)
+        setShowModal(false)
+        refreshPostsOnPage()
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [formData, refreshPostsOnPage, avatar]
+  )
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    api.updateUserAvatar(avatar)
-    api.updateUserInfo(formData)
-    setShowModal(false)
-    refreshPostsOnPage()
-  }
 
   const modalAnimation = useSpring({
     opacity: showModal ? 1 : 0,
@@ -65,7 +70,7 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
                       type="text"
                       placeholder={userInfo.avatar}
                       name="avatar"
-                      onChange={(e)=> setAvatar({...avatar, avatar: e.target.value})}
+                      onChange={(e) => setAvatar({ ...avatar, avatar: e.target.value })}
                       value={avatar.avatar}
                     />
                     <img className=" rounded-full w-[250px] h-[250px] self-center " src={avatar.avatar} alt="" />

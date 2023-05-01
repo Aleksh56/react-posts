@@ -24,6 +24,7 @@ const Post = ({ postInfo, refreshPosts }) => {
     fetchData();
   }, [postInfo._id, author._id]);
 
+
   const handleLikeClick = async (event) => {
     event.stopPropagation();
     event.preventDefault();
