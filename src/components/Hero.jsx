@@ -2,7 +2,7 @@ import CreatePost from "./CreatePost"
 
 const Hero = ({ refreshFlagOnPage }) => {
   return (
-    <section className="hero bg-slate-200 py-10">
+    <section className="hero  py-10 px-4">
       <div className="container mx-auto">
         <div className="welcome__block flex flex-col items-start bg-white rounded-lg p-7">
           <div className="welcome__breadcrumps">bread</div>

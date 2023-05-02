@@ -77,7 +77,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                       }
                       value={formData.image}
                     />
-                    <img className=" w-1/2 h-1/2 self-center" src={formData.image} alt="" />
+                    <img className=" w-1/2 h-1/2 self-center" src={formData.image ? formData.image : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"} alt="" />
                     <input
                       className={styles.createPostInput}
                       type="text"

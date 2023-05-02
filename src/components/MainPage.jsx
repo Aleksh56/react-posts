@@ -13,7 +13,7 @@ const MainPage = ({ onLogout }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
-      <main className="flex-1">
+      <main className="flex-1 bg-slate-200">
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
         <AllPosts
           refreshFlag={addPostFlag}

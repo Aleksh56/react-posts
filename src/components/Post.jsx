@@ -61,7 +61,7 @@ const Post = ({ postInfo, refreshPosts }) => {
 
 
 return (
-  <div className="bg-white rounded-lg shadow-lg hover:shadow-sky-500 overflow-hidden h-full cursor-pointer relative focus:outline-none">
+  <div className="flex flex-col bg-white rounded-lg shadow-lg hover:shadow-sky-500 overflow-hidden h-full cursor-pointer relative focus:outline-none">
     {/* Post author */}
     <div className="px-6 py-4">
       <div className="flex items-center">
@@ -82,7 +82,7 @@ return (
 
     <img className="w-full h-64 object-cover md:h-48 lg:h-64" src={image} alt="Post image" />
 
-    <div className="px-6 py-4">
+    <div className="px-6 py-4 flex flex-col h-full justify-between">
       <div className="font-bold text-xl mb-2">{title}</div>
       <p className="text-gray-700 text-base">{text}</p>
       <div className="flex flex-wrap mt-4">
@@ -97,7 +97,7 @@ return (
         ))}
       </div>
 
-      <div className="absolute bottom-0 right-0 flex items-center mr-4 mb-4">
+      <div className=" justify-end flex items-center">
         <button onClick={handleDeleteClick}>
           <FaTrash className="mr-4 text-lg text-gray-500 focus:outline-none hover:text-yellow-500" />
         </button>

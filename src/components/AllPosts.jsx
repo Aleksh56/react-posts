@@ -33,7 +33,7 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   }
 
   return (
-    <div className="bg-slate-200">
+    <div className="px-4">
       <div className={styles.postsGridContainer}>
         {posts.map((post) => (
           <Link to={`/post/${post._id}`} key={post._id}>

@@ -73,7 +73,7 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
                       onChange={(e) => setAvatar({ ...avatar, avatar: e.target.value })}
                       value={avatar.avatar}
                     />
-                    <img className="rounded-full w-[250px] h-[250px] self-center " src={avatar.avatar} alt="" />
+                    <img className="rounded-full w-[250px] h-[250px] self-center " src={avatar.avatar ? avatar.avatar : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"} alt="" />
                     <input
                       className=" border-2 border-sky-500 rounded-lg  p-2"
                       type="text"
