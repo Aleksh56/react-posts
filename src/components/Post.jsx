@@ -61,7 +61,7 @@ const Post = ({ postInfo, refreshPosts }) => {
 
 
 return (
-  <div className="bg-white rounded-lg shadow-lg hover:shadow-sky-500 overflow-hidden cursor-pointer relative focus:outline-none">
+  <div className="bg-white rounded-lg shadow-lg hover:shadow-sky-500 overflow-hidden h-full cursor-pointer relative focus:outline-none">
     {/* Post author */}
     <div className="px-6 py-4">
       <div className="flex items-center">
@@ -80,13 +80,13 @@ return (
       </div>
     </div>
 
-    <img className="w-full h-64 object-cover" src={image} alt="Post image" />
+    <img className="w-full h-64 object-cover md:h-48 lg:h-64" src={image} alt="Post image" />
 
     <div className="px-6 py-4">
       <div className="font-bold text-xl mb-2">{title}</div>
       <p className="text-gray-700 text-base">{text}</p>
       <div className="flex flex-wrap mt-4">
-        {tags[0].split(" ").map((tag) => (
+        {tags.map((tag) => (
           <div
             key={tag}
             className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
@@ -99,7 +99,7 @@ return (
 
       <div className="absolute bottom-0 right-0 flex items-center mr-4 mb-4">
         <button onClick={handleDeleteClick}>
-          <FaTrash className="mr-4 text-lg text-gray-500 focus:outline-none" />
+          <FaTrash className="mr-4 text-lg text-gray-500 focus:outline-none hover:text-yellow-500" />
         </button>
         <button onClick={handleLikeClick}>
           <FaHeart

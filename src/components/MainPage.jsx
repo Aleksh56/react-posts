@@ -11,9 +11,9 @@ const MainPage = ({ onLogout }) => {
     setAddPostFlag(!addPostFlag)
   }
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
-      <main>
+      <main className="flex-1">
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
         <AllPosts
           refreshFlag={addPostFlag}
@@ -21,7 +21,8 @@ const MainPage = ({ onLogout }) => {
         />
       </main>
       <Footer />
-    </>
+    </div>
+
   )
 }
 

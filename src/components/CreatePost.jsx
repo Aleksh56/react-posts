@@ -77,6 +77,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                       }
                       value={formData.image}
                     />
+                    <img className=" w-1/2 h-1/2 self-center" src={formData.image} alt="" />
                     <input
                       className={styles.createPostInput}
                       type="text"

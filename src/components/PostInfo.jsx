@@ -35,9 +35,9 @@ const PostInfo = ({ onLogout }) => {
   } = postInfo
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header handleLogout={onLogout} />
-      <div className="post__about py-8 bg-sky-200">
+      <div className=" flex-1  post__about py-8  bg-sky-200">
         <div className="post__info container mx-auto flex flex-wrap flex-col">
           <div className="back__btn mb-8">
             <Link
@@ -95,7 +95,7 @@ const PostInfo = ({ onLogout }) => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 
