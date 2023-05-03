@@ -10,7 +10,7 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
   const [formData, setFormData] = useState({
     name: "",
     about: "",
-  });
+  })
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault()
@@ -25,7 +25,6 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
     },
     [formData, refreshPostsOnPage, avatar]
   )
-
 
   const modalAnimation = useSpring({
     opacity: showModal ? 1 : 0,
@@ -70,10 +69,20 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
                       type="text"
                       placeholder={userInfo.avatar}
                       name="avatar"
-                      onChange={(e) => setAvatar({ ...avatar, avatar: e.target.value })}
+                      onChange={(e) =>
+                        setAvatar({ ...avatar, avatar: e.target.value })
+                      }
                       value={avatar.avatar}
                     />
-                    <img className="rounded-full w-[250px] h-[250px] self-center " src={avatar.avatar ? avatar.avatar : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"} alt="" />
+                    <img
+                      className="rounded-full w-[250px] h-[250px] self-center "
+                      src={
+                        avatar.avatar
+                          ? avatar.avatar
+                          : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+                      }
+                      alt=""
+                    />
                     <input
                       className=" border-2 border-sky-500 rounded-lg  p-2"
                       type="text"
@@ -86,7 +95,7 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
                     />
                     <input
                       disabled
-                      className="border-2 border-sky-500 rounded-lg p-2 disabled: bg-gray-600/20"
+                      className="border-2 border-sky-500 rounded-lg p-2"
                       type="text"
                       name="email"
                       value={userInfo.email}

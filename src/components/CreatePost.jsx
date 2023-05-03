@@ -1,4 +1,4 @@
-import { useState, useCallback} from "react"
+import { useState, useCallback, useMemo } from "react"
 import { useSpring, animated, config } from "react-spring"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
@@ -27,13 +27,16 @@ const CreatePost = ({ refreshFlagOnPage }) => {
     [formData, refreshFlagOnPage]
   )
 
-  const modalAnimation =  useSpring({
-      opacity: showModal ? 1 : 0,
-      transform: showModal ? "translateY(0%)" : "translateY(-50%)",
-      delay: 10,
-      config: config.gentle,
-    })
-      
+  const modalAnimation = useMemo(
+    () =>
+      useSpring({
+        opacity: showModal ? 1 : 0,
+        transform: showModal ? "translateY(0%)" : "translateY(-50%)",
+        delay: 10,
+        config: config.gentle,
+      }),
+    [showModal]
+  )
 
   // Todo -  Нужно вынести input'ы в отдельный компонент, так как он переиспользуется
 
@@ -45,7 +48,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
       >
         Создать пост
       </button>
-      {showModal && (
+      {showModal ? (
         <div
           className={`${styles.flexRowFullCenter} ${styles.createPostContainer}`}
         >
@@ -68,38 +71,34 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                     className="flex flex-col gap-5 justify-between"
                   >
                     <input
-                      className={styles.createPostInput}
+                      className={styles.Inputs}
                       type="text"
                       placeholder="Ссылка картинки поста"
                       name="image"
                       onChange={(e) =>
                         setFormData({ ...formData, image: e.target.value })
                       }
-                      value={formData.image}
                     />
-                    <img className=" w-1/2 h-1/2 self-center" src={formData.image ? formData.image : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"} alt="" />
                     <input
-                      className={styles.createPostInput}
+                      className={styles.Inputs}
                       type="text"
                       placeholder="Заголовок поста"
                       name="title"
                       onChange={(e) =>
                         setFormData({ ...formData, title: e.target.value })
                       }
-                      value={formData.title}
                     />
                     <textarea
-                      className={styles.createPostInput}
+                      className={styles.Inputs}
                       name="text"
                       rows="10"
                       placeholder="Текст поста"
                       onChange={(e) =>
                         setFormData({ ...formData, text: e.target.value })
                       }
-                      value={formData.text}
                     ></textarea>
                     <input
-                      className={styles.createPostInput}
+                      className={styles.Inputs}
                       type="text"
                       placeholder="Теги поста"
                       name="tags"
@@ -109,28 +108,19 @@ const CreatePost = ({ refreshFlagOnPage }) => {
                           tags: e.target.value.split(","),
                         })
                       }
-                      value={formData.tags}
                     />
-                    <div className="flex gap-2 justify-end">
-                      <input
-                        onClick={() => setShowModal(false)}
-                        className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
-                        type="submit"
-                        value="Отмена"
-                      />
-                      <input
-                        className="bg-sky-500 rounded-lg p-2 text-white font-bold hover:opacity-50"
-                        type="submit"
-                        value="Изменить"
-                      />
-                    </div>
+                    <input
+                      className="bg-sky-500 rounded-lg p-2 text-white font-bold"
+                      type="submit"
+                      value="Создать"
+                    />
                   </form>
                 </div>
               </div>
             </div>
           </animated.div>
         </div>
-      )}
+      ) : null}
     </>
   )
 }

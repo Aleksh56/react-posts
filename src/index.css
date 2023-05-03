@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@layer base{
-  body{
+@layer base {
+  body {
     height: 100%;
     margin: 0;
   }
@@ -45,4 +44,8 @@
 
 .ReactModal__Content button:hover {
   color: #000;
+}
+
+:disabled {
+  background: #acacac;
 }

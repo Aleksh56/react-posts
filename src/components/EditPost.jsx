@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
+import Input from "./Input"
 
 const EditPost = ({ postInfo, closeModal }) => {
   const [postData, setPostData] = useState(postInfo)
