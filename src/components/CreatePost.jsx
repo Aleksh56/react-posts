@@ -17,6 +17,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
     async (e) => {
       e.preventDefault()
       try {
+        console.log(formData)
         await api.addNewPost(formData)
         setShowModal(false)
         refreshFlagOnPage()
@@ -27,16 +28,13 @@ const CreatePost = ({ refreshFlagOnPage }) => {
     [formData, refreshFlagOnPage]
   )
 
-  const modalAnimation = useMemo(
-    () =>
-      useSpring({
-        opacity: showModal ? 1 : 0,
-        transform: showModal ? "translateY(0%)" : "translateY(-50%)",
-        delay: 10,
-        config: config.gentle,
-      }),
-    [showModal]
-  )
+  const modalAnimation = () =>
+    useSpring({
+      opacity: showModal ? 1 : 0,
+      transform: showModal ? "translateY(0%)" : "translateY(-50%)",
+      delay: 10,
+      config: config.gentle,
+    })
 
   // Todo -  Нужно вынести input'ы в отдельный компонент, так как он переиспользуется
 
