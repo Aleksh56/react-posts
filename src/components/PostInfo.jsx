@@ -21,7 +21,7 @@ const PostInfo = ({ onLogout }) => {
       setPostInfo(fetchedPostInfo)
     }
     handlePostInfoById()
-  }, [])
+  }, [postInfo])
 
   const closeModal = (flag) => {
     setShowModal(flag)

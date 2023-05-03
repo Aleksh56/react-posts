@@ -7,8 +7,7 @@ const EditPost = ({ postInfo, closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await api.updatePostInfo(postData)
-    location.reload()
-    closeModal(false) // закрыть модальное окно
+    closeModal(false)
   }
 
   return (
