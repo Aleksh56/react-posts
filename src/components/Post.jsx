@@ -96,16 +96,17 @@ const Post = ({ postInfo, refreshPosts }) => {
                   className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
                   style={{ maxWidth: "calc(100% - 1rem)" }}
                 >
-                  {`#${tag}`}
+                  #{tag}
                 </div>
               ))
-            : tags.map((tag, index) => (
+            : tags[0] &&
+              tags[0].split(" ").map((tag, index) => (
                 <div
                   key={index}
                   className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
                   style={{ maxWidth: "calc(100% - 1rem)" }}
                 >
-                  {`#${tag.replace(/\s+/g, "")}`}
+                  #{tag}
                 </div>
               ))}
         </div>
