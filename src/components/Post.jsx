@@ -88,16 +88,26 @@ const Post = ({ postInfo, refreshPosts }) => {
         <div className="font-bold text-xl mb-2">{title}</div>
         <p className="text-gray-700 text-base">{text}</p>
         <div className="flex flex-wrap mt-4">
-          {tags[0] &&
-            tags[0].split(" ").map((tag, index) => (
-              <div
-                key={index}
-                className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                style={{ maxWidth: "calc(100% - 1rem)" }}
-              >
-                {`#${tag}`}
-              </div>
-            ))}
+          {tags.length == 1
+            ? tags[0] &&
+              tags[0].split(" ").map((tag, index) => (
+                <div
+                  key={index}
+                  className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  style={{ maxWidth: "calc(100% - 1rem)" }}
+                >
+                  {`#${tag}`}
+                </div>
+              ))
+            : tags.map((tag, index) => (
+                <div
+                  key={index}
+                  className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  style={{ maxWidth: "calc(100% - 1rem)" }}
+                >
+                  {`#${tag.replace(/\s+/g, "")}`}
+                </div>
+              ))}
         </div>
 
         <div className=" justify-end flex items-center">
