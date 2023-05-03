@@ -58,6 +58,13 @@ const Post = ({ postInfo, refreshPosts }) => {
     }
   }
 
+  const flattenedTags = tags
+    .map((tagList) => {
+      const tags = tagList.split(/[\s,]+/)
+      return tags.filter((tag) => tag.trim() !== "")
+    })
+    .flat()
+
   return (
     <div className="flex flex-col bg-white rounded-lg shadow-lg hover:shadow-sky-500 overflow-hidden h-full cursor-pointer relative focus:outline-none">
       {/* Post author */}
@@ -88,27 +95,15 @@ const Post = ({ postInfo, refreshPosts }) => {
         <div className="font-bold text-xl mb-2">{title}</div>
         <p className="text-gray-700 text-base">{text}</p>
         <div className="flex flex-wrap mt-4">
-          {tags.length == 1
-            ? tags[0] &&
-              tags[0].split(" ").map((tag, index) => (
-                <div
-                  key={index}
-                  className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                  style={{ maxWidth: "calc(100% - 1rem)" }}
-                >
-                  #{tag}
-                </div>
-              ))
-            : tags[0] &&
-              tags[0].split(" ").map((tag, index) => (
-                <div
-                  key={index}
-                  className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                  style={{ maxWidth: "calc(100% - 1rem)" }}
-                >
-                  #{tag}
-                </div>
-              ))}
+          {flattenedTags.map((tag, index) => (
+            <div
+              key={index}
+              className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              style={{ maxWidth: "calc(100% - 1rem)" }}
+            >
+              #{tag}
+            </div>
+          ))}
         </div>
 
         <div className=" justify-end flex items-center">
