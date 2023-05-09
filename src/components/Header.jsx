@@ -21,7 +21,12 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
       <div className="container mx-auto flex items-center justify-between py-4 w-full max-sm:flex-col max-sm:items-start">
         <div className="header__logo flex items-center justify-center">
           <Link to="/">
-            <img src={Logo} alt="Main logo" className="max-w-[60px] max-h-[60px]" width="60px" />
+            <img
+              src={Logo}
+              alt="Main logo"
+              className="max-w-[60px] max-h-[60px]"
+              width="60px"
+            />
           </Link>
           <Link to="/">
             <h1 className="ml-3">Реактивные посты</h1>

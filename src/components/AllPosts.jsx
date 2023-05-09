@@ -4,6 +4,7 @@ import { FaSpinner } from "react-icons/fa"
 import { api } from "../api/api"
 import Post from "./Post"
 import styles from "../styles"
+import { Card, Row, Col, Pagination } from "antd"
 
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const [posts, setPosts] = useState()

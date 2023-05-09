@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react"
 import { FaHeart, FaTrash } from "react-icons/fa"
 import { api } from "../api/api"
+import { Card, Avatar, Tag, Button } from "antd"
+import { HeartOutlined, HeartFilled, DeleteOutlined } from "@ant-design/icons"
+
+const { Meta } = Card
 
 const Post = ({ postInfo, refreshPosts }) => {
   const [isLiked, setIsLiked] = useState(false)
@@ -66,61 +70,29 @@ const Post = ({ postInfo, refreshPosts }) => {
     .flat()
 
   return (
-    <div className="flex flex-col bg-white rounded-lg shadow-lg hover:shadow-sky-500 overflow-hidden h-full cursor-pointer relative focus:outline-none">
-      {/* Post author */}
-      <div className="px-6 py-4">
-        <div className="flex items-center">
-          <img
-            className="w-10 h-10 rounded-full mr-4"
-            src={author.avatar}
-            alt="Author avatar"
-          />
-          <div className="text-sm">
-            <p className="text-gray-900 leading-none">{author.name}</p>
-            <p className="text-gray-600">{`Posted on: ${created_at.substring(
-              0,
-              10
-            )}`}</p>
-          </div>
-        </div>
-      </div>
-
-      <img
-        className="w-full h-64 object-cover md:h-48 lg:h-64"
-        src={image}
-        alt="Post image"
+    <Card
+      hoverable
+      cover={<img alt="Post image" src={image} />}
+      actions={[
+        <Button onClick={handleDeleteClick} icon={<DeleteOutlined />}>
+          Delete
+        </Button>,
+        <Button
+          onClick={handleLikeClick}
+          icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
+        >
+          {likes.length}
+        </Button>,
+      ]}
+    >
+      <Meta
+        avatar={<Avatar src={author.avatar} />}
+        title={<span>{author.name}</span>}
+        description={`Posted on: ${created_at.substring(0, 10)}`}
       />
-
-      <div className="px-6 py-4 flex flex-col h-full justify-between">
-        <div className="font-bold text-xl mb-2">{title}</div>
-        <p className="text-gray-700 text-base">{text}</p>
-        <div className="flex flex-wrap mt-4">
-          {flattenedTags.map((tag, index) => (
-            <div
-              key={index}
-              className="bg-sky-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              style={{ maxWidth: "calc(100% - 1rem)" }}
-            >
-              #{tag}
-            </div>
-          ))}
-        </div>
-
-        <div className=" justify-end flex items-center">
-          <button onClick={handleDeleteClick}>
-            <FaTrash className="mr-4 text-lg text-gray-500 focus:outline-none hover:text-yellow-500" />
-          </button>
-          <button onClick={handleLikeClick}>
-            <FaHeart
-              className={`mr-2 text-lg ${
-                isLiked ? "text-red-500" : "text-gray-500"
-              } focus:outline-none`}
-            />
-          </button>
-          <span className="text-gray-700 text-sm">{likes.length}</span>
-        </div>
-      </div>
-    </div>
+      <div className="mt-4">{flattenedTags}</div>
+      <div className="mt-4">{text}</div>
+    </Card>
   )
 }
 

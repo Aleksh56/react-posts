@@ -1,8 +1,6 @@
-// токен
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ5NWNkMDhmYmM0NzNmYTg5ZTQwMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjgyNTMzMDE5LCJleHAiOjE3MTQwNjkwMTl9.Qa6u4j8xEUS63vaBMcY0aT5v6THU1a5emwdfZiRtUfY"
-
-// url ссылки
 const urlGroup = "https://api.react-learning.ru/v2/ep"
+let fetchedToken = ""
 
 
 const config = {
@@ -35,9 +33,9 @@ class Api{
         .then((json) => console.log(json))
     }
 
-     handleLoginSubmit = async (event) => {
+    handleLoginSubmit = async (event) => {
       try {
-        const loginSuccess = await fetch("https://api.react-learning.ru/signin", {
+        const response = await fetch("https://api.react-learning.ru/signin", {
           method: "POST",
           body: JSON.stringify({
             email: event.target.children[0].children[1].value,
@@ -48,9 +46,10 @@ class Api{
           },
         });
     
-        if (loginSuccess.ok) {
-          const response = await loginSuccess.json();
-          return {success: 1, data: response.data};
+        if (response.ok) {
+          const data = await response.json();
+          fetchedToken = data.token
+          return { success: 1, data: data.data };
         } else {
           return 0;
         }
