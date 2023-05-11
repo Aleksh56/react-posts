@@ -1,61 +1,4 @@
 import { useState, useCallback } from "react";
-<<<<<<< HEAD
-import { useSpring, animated, config } from "react-spring";
-import { BiX } from "react-icons/bi";
-import { api } from "../api/api";
-import styles from "../styles";
-import { Modal, Form, Input, Button } from "antd";
-
-const CreatePost = ({ refreshFlagOnPage }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  const [formData, setFormData] = useState({
-    title: "",
-    text: "",
-    image: "",
-    tags: [],
-  });
-
-  const handleSubmit = useCallback(
-    async (values) => {
-      try {
-        console.log(formData);
-        await api.addNewPost(formData);
-        setShowModal(false);
-        refreshFlagOnPage();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [formData, refreshFlagOnPage]
-  );
-
-  const modalAnimation = () =>
-    useSpring({
-      opacity: showModal ? 1 : 0,
-      transform: showModal ? "translateY(0%)" : "translateY(-50%)",
-      delay: 10,
-      config: config.gentle,
-    });
-
-  const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 18 },
-  };
-
-  // A function that sets the form data when a field changes
-  const handleFormChange = (changedValues, allValues) => {
-    setFormData(allValues);
-  };
-=======
 import { Modal, Form, Input, Button } from "antd";
 import { api } from "../api/api";
 import { PlusOutlined } from "@ant-design/icons";
@@ -80,7 +23,6 @@ const CreatePost = ({ refreshFlagOnPage }) => {
   const handleCancel = useCallback(() => {
     setShowModal(false);
   }, []);
->>>>>>> origin/master
 
   return (
     <>

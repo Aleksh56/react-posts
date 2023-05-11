@@ -51,7 +51,7 @@ const EditPost = ({ postInfo, closeModal }) => {
           <Input placeholder='Ссылка картинки поста' />
         </Form.Item>
         <img
-          className='rounded-full w-[250px] h-[250px] self-center'
+          className='rounded-full w-[250px] h-[250px] object-cover'
           src={postData.image}
           alt='Post'
         />
