@@ -1,32 +1,41 @@
-import { useState, useCallback, useMemo } from "react"
-import { useSpring, animated, config } from "react-spring"
-import { BiX } from "react-icons/bi"
-import { api } from "../api/api"
-import styles from "../styles"
+import { useState, useCallback } from "react";
+import { useSpring, animated, config } from "react-spring";
+import { BiX } from "react-icons/bi";
+import { api } from "../api/api";
+import styles from "../styles";
+import { Modal, Form, Input, Button } from "antd";
 
 const CreatePost = ({ refreshFlagOnPage }) => {
-  const [showModal, setShowModal] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const [formData, setFormData] = useState({
     title: "",
     text: "",
     image: "",
     tags: [],
-  })
+  });
 
   const handleSubmit = useCallback(
-    async (e) => {
-      e.preventDefault()
+    async (values) => {
       try {
-        console.log(formData)
-        await api.addNewPost(formData)
-        setShowModal(false)
-        refreshFlagOnPage()
+        console.log(formData);
+        await api.addNewPost(formData);
+        setShowModal(false);
+        refreshFlagOnPage();
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
     [formData, refreshFlagOnPage]
-  )
+  );
 
   const modalAnimation = () =>
     useSpring({
@@ -34,93 +43,97 @@ const CreatePost = ({ refreshFlagOnPage }) => {
       transform: showModal ? "translateY(0%)" : "translateY(-50%)",
       delay: 10,
       config: config.gentle,
-    })
+    });
 
-  // Todo -  Нужно вынести input'ы в отдельный компонент, так как он переиспользуется
+  const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
+  };
+
+  // A function that sets the form data when a field changes
+  const handleFormChange = (changedValues, allValues) => {
+    setFormData(allValues);
+  };
 
   return (
     <>
-      <button
-        onClick={() => setShowModal(true)}
-        className="bg-sky-500 rounded-lg p-2 text-white font-bold"
+      <Button
+        onClick={showModal}
       >
         Создать пост
-      </button>
-      {showModal ? (
-        <div
-          className={`${styles.flexRowFullCenter} ${styles.createPostContainer}`}
-        >
-          <animated.div style={modalAnimation}>
-            <div className="relavite w-auto my-6 mx-auto max-w-3xl">
-              <div className="flex flex-col bg-white rounded-lg p-4 w-[600px] h-auto">
-                <div className="text-3xl flex font-semibold justify-between">
-                  <h3>Создать пост</h3>
-                  <button
-                    type="button"
-                    className="hover:text-sky-500 "
-                    onClick={() => setShowModal(false)}
-                  >
-                    <BiX />
-                  </button>
-                </div>
-                <div className="py-5">
-                  <form
-                    onSubmit={handleSubmit}
-                    className="flex flex-col gap-5 justify-between"
-                  >
-                    <input
-                      className={styles.Inputs}
-                      type="text"
-                      placeholder="Ссылка картинки поста"
-                      name="image"
-                      onChange={(e) =>
-                        setFormData({ ...formData, image: e.target.value })
-                      }
-                    />
-                    <input
-                      className={styles.Inputs}
-                      type="text"
-                      placeholder="Заголовок поста"
-                      name="title"
-                      onChange={(e) =>
-                        setFormData({ ...formData, title: e.target.value })
-                      }
-                    />
-                    <textarea
-                      className={styles.Inputs}
-                      name="text"
-                      rows="10"
-                      placeholder="Текст поста"
-                      onChange={(e) =>
-                        setFormData({ ...formData, text: e.target.value })
-                      }
-                    ></textarea>
-                    <input
-                      className={styles.Inputs}
-                      type="text"
-                      placeholder="Теги поста"
-                      name="tags"
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          tags: e.target.value.split(","),
-                        })
-                      }
-                    />
-                    <input
-                      className="bg-sky-500 rounded-lg p-2 text-white font-bold"
-                      type="submit"
-                      value="Создать"
-                    />
-                  </form>
-                </div>
+      </Button>
+      <Modal
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        open={isModalOpen}
+      >
+        <animated.div style={modalAnimation}>
+              <div className="text-3xl flex font-semibold justify-between">
+                <h3>Создать пост</h3>
               </div>
-            </div>
-          </animated.div>
-        </div>
-      ) : null}
-    </>
-  )
-}
-
-export default CreatePost
+              <div className="py-5">
+                <Form
+                  {...layout}
+                  initialValues={formData}
+                  onValuesChange={handleFormChange}
+                  onFinish={handleSubmit}
+                >
+                  <Form.Item
+                    name="image"
+                    label="Ссылка картинки поста"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Пожалуйста, введите ссылку на картинку",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    name="title"
+                    label="Заголовок поста"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Пожалуйста, введите заголовок",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    name="text"
+                    label="Текст поста"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Пожалуйста, введите текст",
+                      },
+                    ]}
+                  >
+                    <Input.TextArea rows={10} />
+                  </Form.Item>
+                  <Form.Item
+                    name="tags"
+                    label="Теги поста"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Пожалуйста, введите теги",                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item>
+                <Button htmlType="submit">
+                  Создать
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+    </animated.div>
+  </Modal>
+</>); };
+export default CreatePost;

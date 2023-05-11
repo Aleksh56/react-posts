@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import { FaHeart, FaTrash } from "react-icons/fa"
 import { api } from "../api/api"
-import { Card, Avatar, Tag, Button } from "antd"
+import { Card, Avatar, Tag, Button, Space } from "antd"
 import { HeartOutlined, HeartFilled, DeleteOutlined } from "@ant-design/icons"
+import { space } from "postcss/lib/list"
 
 const { Meta } = Card
 
@@ -74,23 +75,33 @@ const Post = ({ postInfo, refreshPosts }) => {
       hoverable
       cover={<img alt="Post image" src={image} />}
       actions={[
-        <Button onClick={handleDeleteClick} icon={<DeleteOutlined />}>
+        <Button key="delete" onClick={handleDeleteClick} icon={<DeleteOutlined />}>
           Delete
-        </Button>,
+        </Button>
+        ,
         <Button
+          key="like"
           onClick={handleLikeClick}
           icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
         >
           {likes.length}
-        </Button>,
-      ]}
-    >
+        </Button>
+        ,
+      ]}>
       <Meta
         avatar={<Avatar src={author.avatar} />}
         title={<span>{author.name}</span>}
         description={`Posted on: ${created_at.substring(0, 10)}`}
       />
-      <div className="mt-4">{flattenedTags}</div>
+      <div className="mt-4 w-full">
+        <Space size={[0, 8]} wrap>
+          {flattenedTags.map((tag, index) => (
+            <Tag key={index} className="inline-block">
+              #{tag}
+            </Tag>
+          ))}
+        </Space>
+      </div>
       <div className="mt-4">{text}</div>
     </Card>
   )
