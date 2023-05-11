@@ -7,12 +7,17 @@ const CreatePost = ({ refreshFlagOnPage }) => {
   const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
 
+
   const handleOk = useCallback(async () => {
     try {
-      const formData = form.getFieldsValue();
-      console.log(formData);
-      const response = await api.addNewPost(formData);
-      console.log(response);
+      const formData = await form.validateFields();
+      const tags = formData.tags
+      ? formData.tags
+          .split(/[\s,]+/)
+          .filter((tag) => tag !== "")
+          .map((tag) => tag.trim())
+      : [];  
+      const response = await api.addNewPost({ ...formData, tags });
       setShowModal(false);
       refreshFlagOnPage();
     } catch (error) {
