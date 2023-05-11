@@ -1,19 +1,19 @@
-import React, { useState } from "react"
-import Header from "./Header"
-import Footer from "./Footer"
-import Hero from "./Hero"
-import AllPosts from "./AllPosts"
+import React, { useState } from "react";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+import Hero from "./Hero";
+import AllPosts from "./AllPosts";
 
 const MainPage = ({ onLogout }) => {
-  const [addPostFlag, setAddPostFlag] = useState(false)
+  const [addPostFlag, setAddPostFlag] = useState(false);
 
   const refreshPostsOnPage = () => {
-    setAddPostFlag(!addPostFlag)
-  }
+    setAddPostFlag(!addPostFlag);
+  };
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className='flex flex-col min-h-screen'>
       <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
-      <main className="flex-1 bg-slate-200">
+      <main className='flex-1 bg-slate-200'>
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
         <AllPosts
           refreshFlag={addPostFlag}
@@ -22,8 +22,7 @@ const MainPage = ({ onLogout }) => {
       </main>
       <Footer />
     </div>
+  );
+};
 
-  )
-}
-
-export default MainPage
+export default MainPage;

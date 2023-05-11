@@ -10,7 +10,7 @@ import AuthPage from "./components/AuthPage"
 import PostInfo from "./components/PostInfo"
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
   const [userData, setUserData] = useState()
   const [localStorageisAuth, setLocalStorageisAuth] = useState(
     window.localStorage.getItem("isAuthenticated")

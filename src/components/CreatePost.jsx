@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+<<<<<<< HEAD
 import { useSpring, animated, config } from "react-spring";
 import { BiX } from "react-icons/bi";
 import { api } from "../api/api";
@@ -54,86 +55,81 @@ const CreatePost = ({ refreshFlagOnPage }) => {
   const handleFormChange = (changedValues, allValues) => {
     setFormData(allValues);
   };
+=======
+import { Modal, Form, Input, Button } from "antd";
+import { api } from "../api/api";
+import { PlusOutlined } from "@ant-design/icons";
+
+const CreatePost = ({ refreshFlagOnPage }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [form] = Form.useForm();
+
+  const handleOk = useCallback(async () => {
+    try {
+      const formData = form.getFieldsValue();
+      console.log(formData);
+      const response = await api.addNewPost(formData);
+      console.log(response);
+      setShowModal(false);
+      refreshFlagOnPage();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [form, refreshFlagOnPage]);
+
+  const handleCancel = useCallback(() => {
+    setShowModal(false);
+  }, []);
+>>>>>>> origin/master
 
   return (
     <>
       <Button
-        onClick={showModal}
-      >
+        type='primary'
+        icon={<PlusOutlined />}
+        onClick={() => setShowModal(true)}
+        className='rounded-lg text-white font-bold'>
         Создать пост
       </Button>
       <Modal
+        title='Создать пост'
+        open={showModal}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={null}
-        open={isModalOpen}
-      >
-        <animated.div style={modalAnimation}>
-              <div className="text-3xl flex font-semibold justify-between">
-                <h3>Создать пост</h3>
-              </div>
-              <div className="py-5">
-                <Form
-                  {...layout}
-                  initialValues={formData}
-                  onValuesChange={handleFormChange}
-                  onFinish={handleSubmit}
-                >
-                  <Form.Item
-                    name="image"
-                    label="Ссылка картинки поста"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Пожалуйста, введите ссылку на картинку",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    name="title"
-                    label="Заголовок поста"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Пожалуйста, введите заголовок",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    name="text"
-                    label="Текст поста"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Пожалуйста, введите текст",
-                      },
-                    ]}
-                  >
-                    <Input.TextArea rows={10} />
-                  </Form.Item>
-                  <Form.Item
-                    name="tags"
-                    label="Теги поста"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Пожалуйста, введите теги",                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item>
-                <Button htmlType="submit">
-                  Создать
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
-    </animated.div>
-  </Modal>
-</>); };
+        footer={[
+          <Button key='cancel' onClick={handleCancel}>
+            Отмена
+          </Button>,
+          <Button key='submit' type='primary' onClick={handleOk}>
+            Создать
+          </Button>,
+        ]}>
+        <Form form={form} layout='vertical'>
+          <Form.Item
+            label='Ссылка картинки поста'
+            name='image'
+            rules={[{ required: true, message: "Введите ссылку на картинку" }]}>
+            <Input placeholder='Ссылка картинки поста' />
+          </Form.Item>
+          <Form.Item
+            label='Заголовок поста'
+            name='title'
+            rules={[{ required: true, message: "Введите заголовок" }]}>
+            <Input placeholder='Заголовок поста' />
+          </Form.Item>
+          <Form.Item
+            label='Текст поста'
+            name='text'
+            rules={[{ required: true, message: "Введите текст поста" }]}>
+            <Input.TextArea placeholder='Текст поста' rows={6} />
+          </Form.Item>
+          <Form.Item label='Теги поста' name='tags'>
+            <Input placeholder='Теги поста (через запятую)' />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
+  );
+};
+
 export default CreatePost;

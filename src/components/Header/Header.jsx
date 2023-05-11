@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
-import Logo from "../assets/logo.png"
-import EditProfile from "./EditProfile"
-import { api } from "../api/api"
+import Logo from "../../assets/logo.png"
+import EditProfile from "../EditProfile"
+import { api } from "../../api/api"
 import { BiExit, BiEditAlt } from "react-icons/bi"
 import { Link } from "react-router-dom"
 
