@@ -59,31 +59,24 @@ class Api{
       }
     };
     
-     handleRegisterSubmit = (event) => {
-      return new Promise(async (resolve, reject) => {
-        try {
-          const response = await fetch("https://api.react-learning.ru/signup", {
-            method: "POST",
-            body: JSON.stringify({
-              email: event.target.children[0].children[1].value,
-              group: this.group,
-              password: event.target.children[1].children[1].value,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-    
-          if (response.ok) {
-            resolve(1);
-          } else {
-            resolve(0);
-          }
-        } catch (error) {
-          console.log("Ошибка - ", error);
-          resolve(0);
-        }
-      });
+     handleRegisterSubmit = async (event) => {
+      try {
+        const response = await fetch("https://api.react-learning.ru/signup", {
+          method: "POST",
+          body: JSON.stringify({
+            email: event.target.children[0].children[1].value,
+            group: this.group,
+            password: event.target.children[1].children[1].value,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return 1
+      } catch (error) {
+        console.log("Ошибка - ", error);
+        return 0
+      }
     };
     
     async getUserInfo() {

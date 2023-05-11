@@ -1,83 +1,74 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { FaSpinner } from "react-icons/fa"
-import { api } from "../api/api"
-import Post from "./Post"
-import styles from "../styles"
-import { Card, Row, Col, Pagination } from "antd"
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
+import { api } from "../api/api";
+import Post from "./Post";
+import styles from "../styles";
+import { Card, Row, Col, Pagination } from "antd";
 
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
-  const [posts, setPosts] = useState()
-  const [isLoading, setIsLoading] = useState(true)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage, setPostsPerPage] = useState(12)
+  const [posts, setPosts] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(12);
 
   useEffect(() => {
     const fetchAllPostFromApi = async () => {
       try {
-        setIsLoading(true)
-        const posts = await api.getAllPosts()
-        setPosts(posts)
+        setIsLoading(true);
+        const posts = await api.getAllPosts();
+        setPosts(posts);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    fetchAllPostFromApi()
-  }, [refreshFlag])
+    };
+    fetchAllPostFromApi();
+  }, [refreshFlag]);
 
-  const indexOfLastPost = currentPage * postsPerPage
-  const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentPosts = posts && posts.slice(indexOfFirstPost, indexOfLastPost)
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts && posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }, [currentPage])
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   if (isLoading) {
     return (
       <div className={`${styles.flexRowFullCenter} h-screen`}>
         <FaSpinner className={styles.fetchLoader} />
       </div>
-    )
+    );
   }
 
   return (
-    <div className="px-4">
-      <div className={styles.postsGridContainer}>
-        {currentPosts.map((post) => (
-          <Link to={`/post/${post._id}`} key={post._id}>
-            <Post
-              key={post._id}
-              postInfo={post}
-              refreshPosts={refreshPostsOnPage}
-            />
-          </Link>
-        ))}
+    <div className='px-4'>
+      <div className='container py-8 mx-auto flex flex-wrap'>
+        <Row gutter={[16, 16]}>
+          {currentPosts.map((post) => (
+            <Col xs={24} sm={24} md={12} lg={6} key={post._id}>
+              <Link to={`/post/${post._id}`}>
+                <Post postInfo={post} refreshPosts={refreshPostsOnPage} />
+              </Link>
+            </Col>
+          ))}
+        </Row>
       </div>
-      <div className="flex justify-center mt-4">
-        {Array.from(
-          { length: Math.ceil(posts.length / postsPerPage) },
-          (_, i) => i + 1
-        ).map((pageNumber) => (
-          <button
-            key={pageNumber}
-            className={`mx-1 my-5 px-3 py-2 rounded-lg ${
-              currentPage === pageNumber
-                ? "bg-sky-500 text-white"
-                : "bg-white text-gray-700 border border-gray-300"
-            } hover:bg-gray-200 focus:outline-none`}
-            onClick={() => paginate(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        ))}
+      <div className='flex justify-center mt-4 mb-7'>
+        <Pagination
+          current={currentPage}
+          pageSize={postsPerPage}
+          total={posts.length}
+          showSizeChanger={false}
+          onChange={paginate}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AllPosts
+export default AllPosts;

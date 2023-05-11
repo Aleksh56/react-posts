@@ -13,11 +13,6 @@ function AuthPage({ handleUserLogin }) {
   const [isResetFormShown, setIsResetFormShown] = useState(false)
   const specialCharacters = '!@#$%^&*(),.?":'
 
-  // Todo - запросы к API должны быть в отдельном классе API (папка для него уже создана)
-  // Todo - вынести формы по отдельным файлам и ипортировать их сюда
-
-  // Note - не могу вынести в отдельный файл формы. Туплю и не понимаю как менять стейты на 2 уровня выше, получаются костыли. Пока оставлю так, чтобы был рабочий прототип
-
   const handleRegisterCheck = () => {
     if (registerPassword.length < 6) {
       alert("Пароль должен содержать больше 6 символов !")
@@ -44,6 +39,7 @@ function AuthPage({ handleUserLogin }) {
     if (handleRegisterCheck()) {
       try {
         const regResult = await api.handleRegisterSubmit(event)
+        console.log(regResult)
         regResult === 1 ? setIsLoginFormShown(true) : setIsLoginFormShown(false)
       } catch (error) {
         console.log("Ошибка - ", error) // Сдесь добавим модалку сверху и будем ее выводить
