@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import Logo from "../../assets/logo.png"
 import EditProfile from "../EditProfile"
 import { api } from "../../api/api"
-import { BiExit, BiEditAlt } from "react-icons/bi"
+import {LogoutOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 
 const Header = ({ handleLogout, refreshPostsOnPage }) => {
@@ -51,10 +51,10 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
             userInfo={userInfo}
           />
           <button
-            className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold"
+            className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-2 px-3 text-white font-bold"
             onClick={handleLogout}
           >
-            <BiExit />
+            <LogoutOutlined />
           </button>
         </div>
       </div>

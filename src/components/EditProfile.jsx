@@ -2,7 +2,7 @@ import { useState, useCallback } from "react"
 import { useSpring, animated, config, update } from "react-spring"
 import { BiX } from "react-icons/bi"
 import { api } from "../api/api"
-import { BiEditAlt } from "react-icons/bi"
+import { EditOutlined } from "@ant-design/icons"
 
 const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
   const [showModal, setShowModal] = useState(false)
@@ -37,9 +37,9 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-3 px-3 text-white font-bold"
+        className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-2 px-3 text-white font-bold"
       >
-        <BiEditAlt />
+        <EditOutlined />
       </button>
       {showModal && (
         <div
