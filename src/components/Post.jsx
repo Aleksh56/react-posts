@@ -75,16 +75,16 @@ const Post = ({ postInfo, refreshPosts }) => {
       cover={<img alt='Post image' src={image} className='max-h-[200px] object-cover' />}
       className='h-full flex flex-col justify-between'
       actions={[
-        <div className='flex items-center justify-center'>
-          <Button key="delete" onClick={handleDeleteClick}>
+        <div key="delete" className='flex items-center justify-center'>
+          <Button  onClick={handleDeleteClick}>
             <div className='flex flex-row items-center'>
               <DeleteOutlined className='mr-1' />
               <span>Delete</span>
             </div>
           </Button>
         </div>,
-        <div className='flex items-center justify-center'>
-          <Button key="like" onClick={handleLikeClick}>
+        <div key="like" className='flex items-center justify-center'>
+          <Button  onClick={handleLikeClick}>
             <div className='flex flex-row items-center'>
               {isLiked ? (
                 <HeartFilled className='mr-1' />
