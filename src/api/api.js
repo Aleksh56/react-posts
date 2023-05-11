@@ -144,11 +144,12 @@ class Api{
 
     async likePostRequest(postId) {
       try {
-        const response = await fetch(`${this.baseUrl}/posts/likes/${postId._id}`, 
-        { method: 'PUT' ,
-          headers:this.headers,
-      });
+        const response = await fetch(`${this.baseUrl}/posts/likes/${postId._id}`, {
+          method: 'PUT',
+          headers: this.headers,
+        });
         const data = await response.json();
+        localStorage.setItem(postId, JSON.stringify(data.likes)); 
         return data;
       } catch (error) {
         console.error('Ошибка:', error);
@@ -156,11 +157,12 @@ class Api{
     }
     async removeLikeRequest(postId) {
       try {
-        const response = await fetch(`${this.baseUrl}/posts/likes/${postId._id}`, { 
+        const response = await fetch(`${this.baseUrl}/posts/likes/${postId._id}`, {
           method: 'DELETE',
           headers: this.headers,
         });
         const data = await response.json();
+        localStorage.removeItem(postId); 
         return data;
       } catch (error) {
         console.error('Ошибка:', error);

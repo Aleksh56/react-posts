@@ -41,6 +41,7 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
   return (
     <>
       <Button
+        size="large"
         type="primary"
         icon={<EditOutlined />}
         onClick={() => setShowModal(true)}

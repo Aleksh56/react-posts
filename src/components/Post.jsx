@@ -97,13 +97,13 @@ const Post = ({ postInfo, refreshPosts }) => {
         </div>,
       ]}>
       <Card.Meta
-        avatar={<Avatar src={author.avatar} />}
+        avatar={<Avatar size={64} src={author.avatar} />}
         title={<span>{author.name}</span>}
         description={`Posted on: ${created_at.substring(0, 10)}`}
       />
       <div className="mt-4 w-full">
         <Space size={[0, 8]} wrap>
-        
+
           {flattenedTags.map((tag, index) => (
             <Tag key={index} className="inline-block">
               #{tag}

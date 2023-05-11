@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react"
 import Logo from "../../assets/logo.png"
 import EditProfile from "../EditProfile"
 import { api } from "../../api/api"
-import {LogoutOutlined } from "@ant-design/icons"
+import { LogoutOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
+import { AudioOutlined } from '@ant-design/icons';
+import { Button, Input, Space } from 'antd';
+
+
 
 const Header = ({ handleLogout, refreshPostsOnPage }) => {
   const [userInfo, setUserInfo] = useState({})
@@ -15,6 +19,8 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
     }
     fetchUserData()
   }, [refreshPostsOnPage])
+
+
 
   return (
     <header className="bg-blue-300 px-4">
@@ -46,16 +52,19 @@ const Header = ({ handleLogout, refreshPostsOnPage }) => {
               <p>{userInfo.email}</p>
             </div>
           </div>
+          <Space size={8}>
           <EditProfile
             refreshPostsOnPage={refreshPostsOnPage}
             userInfo={userInfo}
           />
-          <button
-            className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-2 px-3 text-white font-bold"
-            onClick={handleLogout}
-          >
-            <LogoutOutlined />
-          </button>
+          <Button
+             size="large"
+             icon = {<LogoutOutlined/>}
+             type="primary" 
+             onClick={handleLogout} 
+             >
+          </Button>
+          </Space>
         </div>
       </div>
     </header>
