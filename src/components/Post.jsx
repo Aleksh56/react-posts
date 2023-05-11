@@ -32,20 +32,20 @@ const Post = ({ postInfo, refreshPosts }) => {
   const handleLikeClick = async (event) => {
     event.stopPropagation();
     event.preventDefault();
-
+  
     const newIsLiked = !isLiked;
-
+  
     try {
       if (newIsLiked) {
-        await api.likePostRequest(postInfo);
+        await api.likePostRequest(postInfo._id); 
       } else {
-        await api.removeLikeRequest(postInfo);
+        await api.removeLikeRequest(postInfo._id); 
       }
 
       const updatedPostInfo = await api.getInfoAboutPostById(postInfo._id);
       setIsLiked(newIsLiked);
       postInfo.likes = updatedPostInfo.likes;
-      localStorage.setItem(postInfo._id, JSON.stringify(updatedPostInfo.likes));
+      localStorage.setItem(postInfo._id, JSON.stringify(updatedPostInfo.likes)); 
     } catch (error) {
       console.error(error);
     }
