@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Modal, Form, Input, Button } from "antd";
-import { BiX } from "react-icons/bi";
 import { api } from "../api/api";
 
 const EditPost = ({ postInfo, closeModal }) => {
