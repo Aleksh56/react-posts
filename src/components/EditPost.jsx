@@ -8,22 +8,27 @@ const EditPost = ({ postInfo, closeModal }) => {
 
   const handleOk = async () => {
     try {
-      const values = await form.validateFields();
-      console.log(values);
-      await api.updatePostInfo(values);
+      await form.validateFields();
+      const postData1 = { ...postData, ...form.getFieldsValue() };
+      await api.updatePostInfo(postData1);
       closeModal(false);
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleCancel = () => {
     closeModal(false);
   };
 
   const handleSubmit = (values) => {
-    setPostData({ ...postData, ...values });
+    const tagsArr = values.tags
+      ? values.tags.split(/[\s,]+/).filter((tag) => tag !== "").map((tag) => tag.trim())
+      : [];
+    setPostData({ ...postData, ...values, tags: tagsArr });
   };
+  
 
   return (
     <Modal
