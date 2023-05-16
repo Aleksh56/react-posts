@@ -103,7 +103,6 @@ const Post = ({ postInfo, refreshPosts }) => {
       />
       <div className="mt-4 w-full">
         <Space size={[0, 8]} wrap>
-
           {flattenedTags.map((tag, index) => (
             <Tag key={index} className="inline-block">
               #{tag}

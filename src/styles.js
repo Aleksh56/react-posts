@@ -9,4 +9,4 @@ const styles = {
     Inputs: "border-2 border-sky-500 rounded-lg  p-2"
 }
 
-export default styles
+export default styles  

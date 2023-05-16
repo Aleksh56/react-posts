@@ -5,6 +5,7 @@ import { api } from "../api/api";
 import Post from "./Post";
 import styles from "../styles";
 import { Card, Row, Col, Pagination } from "antd";
+import Sort from "./Sort";
 
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const [posts, setPosts] = useState();
@@ -46,7 +47,10 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   }
 
   return (
-    <div className='px-4'>
+    <div className=' px-4'>
+      <div className='container flex justify-end mx-auto'>
+        <Sort postInfo = {posts}/>
+      </div>
       <div className='container py-8 mx-auto flex flex-wrap'>
         <Row gutter={[16, 16]}>
           {currentPosts.map((post) => (

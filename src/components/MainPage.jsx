@@ -3,6 +3,7 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Hero from "./Hero";
 import AllPosts from "./AllPosts";
+import Sort from "./Sort";
 
 const MainPage = ({ onLogout }) => {
   const [addPostFlag, setAddPostFlag] = useState(false);
@@ -15,6 +16,7 @@ const MainPage = ({ onLogout }) => {
       <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
       <main className='flex-1 bg-slate-200'>
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
+
         <AllPosts
           refreshFlag={addPostFlag}
           refreshPostsOnPage={refreshPostsOnPage}

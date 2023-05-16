@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Modal, Form, Input, Button } from "antd";
 import { api } from "../api/api";
 
@@ -6,7 +6,13 @@ const EditPost = ({ postInfo, closeModal }) => {
   const [postData, setPostData] = useState(postInfo);
   const [form] = Form.useForm();
 
-  const handleOk = async () => {
+  const handleSubmit = useCallback((values) => {
+    const { tags = "" } = values;
+    const tagsArr = tags.split(/[\s,]+/).filter((tag) => tag !== "").map((tag) => tag.trim());
+    setPostData({ ...postData, ...values, tags: tagsArr });
+  }, [postData]);
+
+  const handleOk = useCallback(async () => {
     try {
       await form.validateFields();
       const postData1 = { ...postData, ...form.getFieldsValue() };
@@ -15,19 +21,11 @@ const EditPost = ({ postInfo, closeModal }) => {
     } catch (error) {
       console.error(error);
     }
-  };
-  
+  }, [form, postData, closeModal]);
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     closeModal(false);
-  };
-
-  const handleSubmit = (values) => {
-    const tagsArr = values.tags
-      ? values.tags.split(/[\s,]+/).filter((tag) => tag !== "").map((tag) => tag.trim())
-      : [];
-    setPostData({ ...postData, ...values, tags: tagsArr });
-  };
+  }, [closeModal]);
   
 
   return (
@@ -46,7 +44,7 @@ const EditPost = ({ postInfo, closeModal }) => {
       <Form
         layout='vertical'
         onFinish={handleSubmit}
-        initialValues={{ ...postData, tags: postData.tags.join(", ") }}
+        initialValues={postData}
         form={form}>
         <Form.Item
           label='Ссылка картинки поста'
