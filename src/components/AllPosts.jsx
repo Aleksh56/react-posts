@@ -4,7 +4,9 @@ import { FaSpinner } from "react-icons/fa";
 import { api } from "../api/api";
 import Post from "./Post";
 import styles from "../styles";
-import { Card, Row, Col, Pagination } from "antd";
+import { DownOutlined, CommentOutlined, HeartOutlined, UserOutlined } from '@ant-design/icons';
+
+import { Card, Row, Col, Pagination, Button, Dropdown, Space,} from "antd";
 import Sort from "./Sort";
 
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
@@ -12,6 +14,7 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(12);
+  const [sortedPosts, setSortedPosts] = useState(posts);
 
   useEffect(() => {
     const fetchAllPostFromApi = async () => {
@@ -19,6 +22,7 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
         setIsLoading(true);
         const posts = await api.getAllPosts();
         setPosts(posts);
+        setSortedPosts(posts);
       } catch (error) {
         console.log(error);
       } finally {
@@ -30,8 +34,8 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts && posts.slice(indexOfFirstPost, indexOfLastPost);
-
+  const currentPosts = sortedPosts && sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+  
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
@@ -46,11 +50,16 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
     );
   }
 
+const sortPosts = (sortedPosts) => {
+  setSortedPosts(sortedPosts);
+  setCurrentPage(1);
+};
+
   return (
     <div className=' px-4'>
       <div className='container flex justify-end mx-auto'>
-        <Sort postInfo = {posts}/>
-      </div>
+        <Sort onSort={sortPosts} postInfo={posts}/>
+        </div>
       <div className='container py-8 mx-auto flex flex-wrap'>
         <Row gutter={[16, 16]}>
           {currentPosts.map((post) => (

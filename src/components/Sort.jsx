@@ -2,20 +2,23 @@ import React from 'react';
 import { DownOutlined, CommentOutlined, HeartOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Space, Tooltip, message } from 'antd';
 
-
-const Sort = (postInfo) => {
+const Sort = ({ postInfo, onSort }) => {
 
     const handleMenuClick = (e) => {
-        console.log(e);
+        switch (e.key) {
+            case '1':
+                onSort(postInfo);
+                break;
+            case '2':
+                onSort([...postInfo].sort((a, b) => b.likes.length - a.likes.length));
+                break;
+            case '3':
+                onSort([...postInfo].sort((a, b) => b.comments.length - a.comments.length));
+                break;
+            default:
+                break;
+        }
     };
-
-
-postInfo.postInfo.map((post) => {
-    post.likes.sort((a,b) => {
-        return b.length - a.length 
-    });
-})
-
 
     const items = [
         {
@@ -39,19 +42,15 @@ postInfo.postInfo.map((post) => {
         onClick: handleMenuClick,
     };
 
-
     return (
-        <>
-            <Dropdown menu={menuProps}>
-                <Button type='primary'>
-                    <Space>
-                        Sort by
-                        <DownOutlined />
-                    </Space>
-                </Button>
-            </Dropdown>
-        </>
-
+        <Dropdown menu={menuProps}>
+            <Button type='primary'>
+                <Space>
+                    Sort by
+                    <DownOutlined />
+                </Space>
+            </Button>
+        </Dropdown>
     )
 }
 
