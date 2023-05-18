@@ -7,7 +7,7 @@ import ErrorPage from "./components/404Error/ErrorPage";
 import UserProfile from "./components/UserProfilePage/UserProfile";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [localStorageisAuth, setLocalStorageisAuth] = useState(
     window.localStorage.getItem("isAuthenticated")
   );
@@ -15,6 +15,7 @@ const App = () => {
 
   const handleLogin = (loginData) => {
     setIsAuthenticated(true);
+    localStorage.setItem("userData", JSON.stringify(loginData));
     localStorage.setItem("isAuthenticated", true);
     setLocalStorageisAuth(true);
   };

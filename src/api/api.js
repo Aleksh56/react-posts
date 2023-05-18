@@ -1,4 +1,5 @@
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ5NWNkMDhmYmM0NzNmYTg5ZTQwMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjgyNTMzMDE5LCJleHAiOjE3MTQwNjkwMTl9.Qa6u4j8xEUS63vaBMcY0aT5v6THU1a5emwdfZiRtUfY"
+// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ5NWNkMDhmYmM0NzNmYTg5ZTQwMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjgyNTMzMDE5LCJleHAiOjE3MTQwNjkwMTl9.Qa6u4j8xEUS63vaBMcY0aT5v6THU1a5emwdfZiRtUfY"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDY2MzY1MmUwYmYyYzUxOWJhOTcyMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjg0NDIwNDcwLCJleHAiOjE3MTU5NTY0NzB9.E7t_V4y0-KD-Md0WP7-dPyj-OOWcBuTOVaRxAXmFYcc"
 const urlGroup = "https://api.react-learning.ru/v2/ep"
 let fetchedToken = ""
 
@@ -49,6 +50,7 @@ class Api{
         if (response.ok) {
           const data = await response.json();
           fetchedToken = data.token
+          console.log(data)
           return { success: 1, data: data.data };
         } else {
           return 0;
@@ -65,7 +67,7 @@ class Api{
           method: "POST",
           body: JSON.stringify({
             email: event.target.children[0].children[1].value,
-            group: this.group,
+            group: "ep",
             password: event.target.children[1].children[1].value,
           }),
           headers: {
@@ -88,11 +90,13 @@ class Api{
     }
 
     async updateUserInfo(updUser) {
-      await fetch(`${this.baseUrl}/users/me`, {
+      const newUserData = await fetch(`${this.baseUrl}/users/me`, {
         method: "PATCH",
         headers: this.headers,
         body: JSON.stringify(updUser)
     })
+    const updatedUserData = await newUserData.json()
+    return updatedUserData
     }
     async updateUserAvatar(updAvatar){
       await fetch(`${this.baseUrl}/users/me/avatar`, {

@@ -26,12 +26,12 @@ const UserProfile = () => {
       setLoading(true);
       try {
         const formData = {
-          name: values.name || userInfo.name,
-          about: values.about || userInfo.about,
+          name: values.name,
+          about: values.about,
         };
+        console.log(formData);
         await api.updateUserAvatar({ avatar: avatarUrl });
         const updatedUserData = await api.updateUserInfo(formData);
-        console.log(updatedUserData);
         setUserInfo(updatedUserData);
         window.localStorage.setItem(
           "userData",
