@@ -1,48 +1,50 @@
-import { useState, useEffect,useCallback } from "react";
-import { Input, Button, Divider, Image, Form } from "antd";
+import { useState, useEffect, useCallback } from "react";
+import { Input, Button, Divider, Image, Form, Spin } from "antd";
 import { UserOutlined, MailOutlined } from "@ant-design/icons";
 import Header from "../Header/Header";
-import EditProfile from "../EditProfile";
-import {api} from "../../api/api";
+import { api } from "../../api/api";
 
-const UserProfile = ({refreshPostsOnPage, handleUserDataUpdate}) => {
-  const [avatarUrl, setAvatarUrl] = useState({avatar:""});
+const UserProfile = () => {
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(window.localStorage.getItem("userData")) || {}
+  );
+  const [avatarUrl, setAvatarUrl] = useState(userInfo.avatar || "");
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await api.getUserInfo();
-      setUserInfo(userData);
-      window.localStorage.setItem("userData", JSON.stringify(userData));
-      form.setFieldsValue({
-        name: userData.name,
-        about: userData.about,
-        avatar: userData.avatar,
-        email: userData.email,
-      });
-    };
-    fetchUserData();
-  }, [form, refreshPostsOnPage]);
-  
+    form.setFieldsValue({
+      name: userInfo.name,
+      about: userInfo.about,
+      avatar: userInfo.avatar,
+      email: userInfo.email,
+    });
+  }, [form, userInfo]);
 
   const handleSubmit = useCallback(
     async (values) => {
+      setLoading(true);
       try {
         const formData = {
           name: values.name || userInfo.name,
           about: values.about || userInfo.about,
         };
-        await api.updateUserAvatar(avatarUrl);
+        await api.updateUserAvatar({ avatar: avatarUrl });
         const updatedUserData = await api.updateUserInfo(formData);
-        await api.getUserInfo().then((data) => setUserInfo(data));
-        handleUserDataUpdate(updatedUserData);
-        refreshPostsOnPage();
+        console.log(updatedUserData);
+        setUserInfo(updatedUserData);
+        window.localStorage.setItem(
+          "userData",
+          JSON.stringify(updatedUserData)
+        );
+        setAvatarUrl(updatedUserData.avatar);
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     },
-    [avatarUrl, handleUserDataUpdate, refreshPostsOnPage, userInfo]
+    [avatarUrl, userInfo]
   );
 
   return (
@@ -58,48 +60,41 @@ const UserProfile = ({refreshPostsOnPage, handleUserDataUpdate}) => {
                 width={150}
                 height={150}
                 className='rounded-full'
-                src={userInfo.avatar}
+                src={avatarUrl}
                 alt='User Avatar'
               />
             </div>
-            <div className='user__avatar-buttons flex gap-3'>
-            </div>
+            <div className='user__avatar-buttons flex gap-3'></div>
           </div>
           <Divider />
           <div className='user__about-container flex gap-7'>
-          <Form
-            id='edit-profile-form'
-            form={form}
-            onFinish={handleSubmit}
-            layout='horizontal'
-            initialValues={{
-              name: userInfo.name,
-              about: userInfo.about,
-              avatar: userInfo.avatar,
-              email: userInfo.email,
-            }}>
-            <Form.Item label='Фото профиля' name='avatar'>
-              <Input
-                placeholder='Ссылка на фото профиля'
-                onChange={(e) => setAvatarUrl({...avatarUrl, avatar:e.target.value})}
-              />
-            </Form.Item>
-            <Form.Item
-              label='Имя'
-              name='name'>
-              <Input placeholder='Имя' />
-            </Form.Item>
-            <Form.Item label='Email' name='email'>
-              <Input placeholder='Email' disabled />
-            </Form.Item>
-            <Form.Item
-              label='О себе'
-              name='about'>
-              <Input.TextArea placeholder='Информация о себе' rows={6}  cols={40}/>
-            </Form.Item>
-          </Form>
+            <Form
+              id='edit-profile-form'
+              form={form}
+              onFinish={handleSubmit}
+              layout='horizontal'>
+              <Form.Item label='Фото профиля' name='avatar'>
+                <Input
+                  placeholder='Ссылка на фото профиля'
+                  onChange={(e) => setAvatarUrl(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label='Имя' name='name'>
+                <Input placeholder='Имя' />
+              </Form.Item>
+              <Form.Item label='Email' name='email'>
+                <Input placeholder='Email' disabled prefix={<MailOutlined />} />
+              </Form.Item>
+              <Form.Item label='О себе' name='about'>
+                <Input.TextArea
+                  placeholder='Информация о себе'
+                  rows={6}
+                  cols={40}
+                />
+              </Form.Item>
+            </Form>
           </div>
-          <Button 
+          <Button
             key='submit'
             type='primary'
             form='edit-profile-form'
@@ -107,6 +102,11 @@ const UserProfile = ({refreshPostsOnPage, handleUserDataUpdate}) => {
             className='self-center'>
             Сохранить
           </Button>
+          {loading && (
+            <div className='spinner-container'>
+              <Spin size='large' />
+            </div>
+          )}
         </div>
       </div>
     </>

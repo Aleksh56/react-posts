@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/logo.png";
-import EditProfile from "../EditProfile";
+// import EditProfile from "../EditProfile";
 import { api } from "../../api/api";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -8,12 +8,12 @@ import { AudioOutlined } from "@ant-design/icons";
 import { Button, Input, Space } from "antd";
 
 const Header = ({ handleLogout }) => {
-  const [userData, setUserData] = 
-  useState( JSON.parse(localStorage.getItem("userData")) );
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
   const handleUserDataUpdate = (newUserData) => {
     setUserData(newUserData);
-  }
-
+  };
 
   return (
     <header className='bg-blue-300 px-4'>

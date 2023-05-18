@@ -6,7 +6,7 @@
 
 // const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
 //   const [showModal, setShowModal] = useState(false);
-//   const [avatarUrl, setAvatarUrl] = useState({avatar:""});
+//   const [avatarUrl, setAvatarUrl] = useState({ avatar: "" });
 //   const [form] = Form.useForm();
 
 //   const handleSubmit = useCallback(
@@ -77,7 +77,9 @@
 //             <Form.Item label='Фото профиля' name='avatar'>
 //               <Input
 //                 placeholder='Ссылка на фото профиля'
-//                 onChange={(e) => setAvatarUrl({...avatarUrl, avatar:e.target.value})}
+//                 onChange={(e) =>
+//                   setAvatarUrl({ ...avatarUrl, avatar: e.target.value })
+//                 }
 //               />
 //             </Form.Item>
 //             <Form.Item

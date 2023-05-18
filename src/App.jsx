@@ -69,7 +69,7 @@ const App = () => {
           )
         }
       />
-      <Route path='/profile/:userId' element={<UserProfile handleUserDataUpdate={handleUserDataUpdate} />} />
+      <Route path='/profile/:userId' element={<UserProfile />} />
       <Route path='*' element={<ErrorPage />} />
     </Routes>
   );
