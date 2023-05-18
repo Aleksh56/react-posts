@@ -98,7 +98,7 @@ class Api{
       await fetch(`${this.baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: this.headers,
-        body: JSON.stringify(updAvatar)
+        body:JSON.stringify(updAvatar)
     })
     }
     async getAllPosts() {

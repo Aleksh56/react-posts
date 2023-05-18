@@ -15,7 +15,6 @@ const MainPage = ({ onLogout }) => {
       <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
       <main className='flex-1 bg-slate-200'>
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
-
         <AllPosts
           refreshFlag={addPostFlag}
           refreshPostsOnPage={refreshPostsOnPage}
