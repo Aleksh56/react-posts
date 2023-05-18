@@ -19,7 +19,6 @@ const Sort = ({ postInfo, onSort }) => {
                 break;
         }
     };
-
     const items = [
         {
             label: 'Default',
