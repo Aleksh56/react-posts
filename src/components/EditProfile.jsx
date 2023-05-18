@@ -41,61 +41,61 @@ const EditProfile = ({ refreshPostsOnPage, userInfo }) => {
   return (
     <>
       <Button
-        size="large"
-        type="primary"
+        size='large'
+        type='primary'
         icon={<EditOutlined />}
         onClick={() => setShowModal(true)}
-        className="header__logout-btn ml-2 rounded-lg bg-sky-500 py-2 px-3 text-white font-bold"
-      >
-      </Button>
+        className='header__logout-btn ml-2 rounded-lg bg-sky-500 py-2 px-3 text-white font-bold'></Button>
       <Modal
-        title="Редактировать профиль"
+        title='Редактировать профиль'
         open={showModal}
         onCancel={handleCancel}
         footer={[
-          <Button key="cancel" onClick={handleCancel}>
+          <Button key='cancel' onClick={handleCancel}>
             Отмена
           </Button>,
-          <Button key="submit" type="primary" form="edit-profile-form" htmlType="submit">
+          <Button
+            key='submit'
+            type='primary'
+            form='edit-profile-form'
+            htmlType='submit'>
             Изменить
           </Button>,
-        ]}
-      >
+        ]}>
         <animated.div style={modalAnimation}>
           <Form
-            id="edit-profile-form"
+            id='edit-profile-form'
             form={form}
             onFinish={handleSubmit}
-            layout="vertical"
+            layout='vertical'
             initialValues={{
               name: userInfo.name,
               about: userInfo.about,
               avatar: userInfo.avatar,
               email: userInfo.email,
-            }}
-          >
-            <Form.Item label="Фото профиля" name="avatar">
+            }}>
+            <Form.Item label='Фото профиля' name='avatar'>
               <Input
-                placeholder="Ссылка на фото профиля"
+                placeholder='Ссылка на фото профиля'
                 onChange={(e) => setAvatarUrl(e.target.value)}
               />
             </Form.Item>
             <Form.Item
-              label="Имя"
-              name="name"
-              rules={[{ required: true, message: "Введите имя" }]}
-            >
-              <Input placeholder="Имя" />
+              label='Имя'
+              name='name'
+              rules={[{ required: true, message: "Введите имя" }]}>
+              <Input placeholder='Имя' />
             </Form.Item>
-            <Form.Item label="Email" name="email">
-              <Input placeholder="Email" disabled />
+            <Form.Item label='Email' name='email'>
+              <Input placeholder='Email' disabled />
             </Form.Item>
             <Form.Item
-              label="О себе"
-              name="about"
-              rules={[{ required: true, message: "Введите информацию о себе" }]}
-            >
-              <Input.TextArea placeholder="Информация о себе" rows={6} />
+              label='О себе'
+              name='about'
+              rules={[
+                { required: true, message: "Введите информацию о себе" },
+              ]}>
+              <Input.TextArea placeholder='Информация о себе' rows={6} />
             </Form.Item>
           </Form>
         </animated.div>
