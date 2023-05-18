@@ -32,20 +32,14 @@ const Post = ({ postInfo, refreshPosts }) => {
   const handleLikeClick = async (event) => {
     event.stopPropagation();
     event.preventDefault();
-  
     const newIsLiked = !isLiked;
-  
     try {
-      if (newIsLiked) {
-        await api.likePostRequest(postInfo._id); 
-      } else {
-        await api.removeLikeRequest(postInfo._id); 
-      }
-
+      if (newIsLiked) await api.likePostRequest(postInfo._id);
+      else await api.removeLikeRequest(postInfo._id);
       const updatedPostInfo = await api.getInfoAboutPostById(postInfo._id);
       setIsLiked(newIsLiked);
       postInfo.likes = updatedPostInfo.likes;
-      localStorage.setItem(postInfo._id, JSON.stringify(updatedPostInfo.likes)); 
+      localStorage.setItem(postInfo._id, JSON.stringify(updatedPostInfo.likes));
     } catch (error) {
       console.error(error);
     }
@@ -63,28 +57,33 @@ const Post = ({ postInfo, refreshPosts }) => {
   };
 
   const flattenedTags = tags
-    .map((tagList) => {
-      const tags = tagList.split(/[\s,]+/);
-      return tags.filter((tag) => tag.trim() !== "");
-    })
+    .map((tagList) =>
+      tagList.split(/[\s,]+/).filter((tag) => tag.trim() !== "")
+    )
     .flat();
 
   return (
     <Card
       hoverable
-      cover={<img alt='Post image' src={image} className='max-h-[200px] object-cover' />}
+      cover={
+        <img
+          alt='Post image'
+          src={image}
+          className='max-h-[200px] object-cover'
+        />
+      }
       className='h-full flex flex-col justify-between'
       actions={[
-        <div key="delete" className='flex items-center justify-center'>
-          <Button  onClick={handleDeleteClick}>
+        <div key='delete' className='flex items-center justify-center'>
+          <Button onClick={handleDeleteClick}>
             <div className='flex flex-row items-center'>
               <DeleteOutlined className='mr-1' />
               <span>Delete</span>
             </div>
           </Button>
         </div>,
-        <div key="like" className='flex items-center justify-center'>
-          <Button  onClick={handleLikeClick}>
+        <div key='like' className='flex items-center justify-center'>
+          <Button onClick={handleLikeClick}>
             <div className='flex flex-row items-center'>
               {isLiked ? (
                 <HeartFilled className='mr-1' />
@@ -96,15 +95,15 @@ const Post = ({ postInfo, refreshPosts }) => {
           </Button>
         </div>,
       ]}>
-      <Card.Meta
+      <Meta
         avatar={<Avatar size={64} src={author.avatar} />}
         title={<span>{author.name}</span>}
         description={`Posted on: ${created_at.substring(0, 10)}`}
       />
-      <div className="mt-4 w-full">
+      <div className='mt-4 w-full'>
         <Space size={[0, 8]} wrap>
           {flattenedTags.map((tag, index) => (
-            <Tag key={index} className="inline-block">
+            <Tag key={index} className='inline-block'>
               #{tag}
             </Tag>
           ))}

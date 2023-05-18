@@ -6,11 +6,17 @@ const EditPost = ({ postInfo, closeModal }) => {
   const [postData, setPostData] = useState(postInfo);
   const [form] = Form.useForm();
 
-  const handleSubmit = useCallback((values) => {
-    const { tags = "" } = values;
-    const tagsArr = tags.split(/[\s,]+/).filter((tag) => tag !== "").map((tag) => tag.trim());
-    setPostData({ ...postData, ...values, tags: tagsArr });
-  }, [postData]);
+  const handleSubmit = useCallback(
+    (values) => {
+      const { tags = "" } = values;
+      const tagsArr = tags
+        .split(/[\s,]+/)
+        .filter((tag) => tag !== "")
+        .map((tag) => tag.trim());
+      setPostData({ ...postData, ...values, tags: tagsArr });
+    },
+    [postData]
+  );
 
   const handleOk = useCallback(async () => {
     try {
@@ -26,7 +32,6 @@ const EditPost = ({ postInfo, closeModal }) => {
   const handleCancel = useCallback(() => {
     closeModal(false);
   }, [closeModal]);
-  
 
   return (
     <Modal

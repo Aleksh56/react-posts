@@ -1,36 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header/Header";
 import { Link } from "react-router-dom";
+import { Breadcrumb, Button } from "antd";
 import { FaArrowLeft, FaHeart } from "react-icons/fa";
-import { Breadcrumb } from "antd";
-import { TiUser } from "react-icons/ti";
-import { api } from "../api/api";
-import Footer from "./Footer/Footer";
 import EditPost from "./EditPost";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+import { api } from "../api/api";
 
 const PostInfo = ({ onLogout }) => {
   const [postInfo, setPostInfo] = useState({});
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    // setIsLoading(true)
-    const handlePostInfoById = async () => {
-      const browserUrl = window.location.href;
-      const postId = browserUrl.split("/").pop();
-      const fetchedPostInfo = await api.getInfoAboutPostById(postId);
-      setPostInfo(fetchedPostInfo);
-    };
-    handlePostInfoById();
-  }, [postInfo]);
-
-  const closeModal = (flag) => {
-    setShowModal(flag);
-  };
-
-  // Без дефолтных данных выбивает ошибку - пофиксить
-
   const {
-    author = "avtor",
+    author = { name: "avtor", avatar: "" },
     comments = [],
     created_at = "",
     image = "",
@@ -41,18 +22,28 @@ const PostInfo = ({ onLogout }) => {
     _id = "",
   } = postInfo;
 
+  useEffect(() => {
+    const fetchPostInfo = async () => {
+      const postId = window.location.href.split("/").pop();
+      setPostInfo(await api.getInfoAboutPostById(postId));
+    };
+    fetchPostInfo();
+  }, []);
+
+  const closeModal = () => setShowModal(false);
+
   return (
     <>
       {showModal && <EditPost postInfo={postInfo} closeModal={closeModal} />}
-      <div className='flex flex-col min-h-screen'>
+      <div className='min-h-screen flex flex-col'>
         <Header handleLogout={onLogout} />
-        <div className=' flex-1  post__about py-8  bg-sky-200'>
-          <div className='post__info container mx-auto flex flex-wrap flex-col'>
+        <div className='flex-1 bg-sky-200 py-8 post__about'>
+          <div className='container mx-auto flex flex-col flex-wrap post__info'>
             <Breadcrumb className='mb-3'>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
               <Breadcrumb.Item>Post-{_id}</Breadcrumb.Item>
             </Breadcrumb>
-            <div className='back__btn mb-8'>
+            <div className='mb-8 back__btn'>
               <Link
                 to='/'
                 className='px-4 py-2 text-gray-700 hover:text-gray-900'>
@@ -60,14 +51,14 @@ const PostInfo = ({ onLogout }) => {
                 Back
               </Link>
             </div>
-            <div className='post__content flex items-start justify-between py-3'>
+            <div className='flex py-3 items-start justify-between post__content'>
               <img
                 src={image}
                 alt='Post'
-                className='max-w-[600px] lg:w-2/3 object-cover'
+                className='object-cover max-w-[600px] lg:w-2/3'
               />
-              <div className='w-full lg:w-1/3 p-4'>
-                <div className='flex items-center mb-4'>
+              <div className='p-4 lg:w-1/3 w-full'>
+                <div className='mb-4 flex items-center'>
                   <img
                     src={author.avatar}
                     alt='Author'
@@ -80,18 +71,17 @@ const PostInfo = ({ onLogout }) => {
                       10
                     )}`}</p>
                   </div>
-                  <button
+                  <Button
+                    type='primary'
                     className='bg-sky-400 px-3 py-2 rounded-xl transition-all hover:bg-sky-300'
                     onClick={() => setShowModal(true)}>
                     Edit post
-                  </button>
+                  </Button>
                 </div>
-
-                <div className='flex items-center mb-4'>
+                <div className='mb-4 flex items-center'>
                   <FaHeart className='inline-block mr-2 text-red-500' />
                   <p className='text-gray-600'>{`${likes.length} likes`}</p>
                 </div>
-
                 <div className='flex flex-wrap mt-4'>
                   {tags[0].split(" ").map((tag) => (
                     <div
@@ -102,9 +92,7 @@ const PostInfo = ({ onLogout }) => {
                     </div>
                   ))}
                 </div>
-
                 <h1 className='text-2xl font-bold mb-4'>{title}</h1>
-
                 <p className='text-gray-700 leading-relaxed'>{text}</p>
               </div>
             </div>

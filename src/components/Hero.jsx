@@ -2,7 +2,7 @@ import React from "react";
 import { Breadcrumb, Button, Card } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import CreatePost from "./CreatePost";
-// Надо пофиксить кнопку, она почему-то стала белой. Я временно написал стили в index.css
+
 const Hero = ({ refreshFlagOnPage }) => {
   return (
     <section className='hero py-10 px-4'>
