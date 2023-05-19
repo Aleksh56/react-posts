@@ -4,12 +4,15 @@ import Footer from "./Footer/Footer";
 import Hero from "./Hero";
 import AllPosts from "./AllPosts";
 
+
 const MainPage = ({ onLogout }) => {
   const [addPostFlag, setAddPostFlag] = useState(false);
 
   const refreshPostsOnPage = () => {
     setAddPostFlag(!addPostFlag);
   };
+
+
   return (
     <div className='flex flex-col min-h-screen'>
       <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
