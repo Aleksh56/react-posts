@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Logo from "../../assets/logo.png";
 // import EditProfile from "../EditProfile";
 import { api } from "../../api/api";
@@ -6,14 +6,10 @@ import { LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AudioOutlined } from "@ant-design/icons";
 import { Button, Input, Space } from "antd";
+import { UserDataContext } from "../../context/UserContext";
 
 const Header = ({ handleLogout }) => {
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("userData"))
-  );
-  const handleUserDataUpdate = (newUserData) => {
-    setUserData(newUserData);
-  };
+  const { userData, handleUserDataUpdate } = useContext(UserDataContext);
 
   useEffect(() => {
     const userDataFromStorage = JSON.parse(localStorage.getItem("userData"));
@@ -51,18 +47,12 @@ const Header = ({ handleLogout }) => {
               </div>
             </Link>
           </div>
-          <Space size={8}>
-            {/* <EditProfile
-              refreshPostsOnPage={refreshPostsOnPage}
-              userInfo={userInfo}
-            /> */}
             <Button
               size='large'
               icon={<LogoutOutlined />}
               type='primary'
               href='/auth'
               onClick={handleLogout}></Button>
-          </Space>
         </div>
       </div>
     </header>

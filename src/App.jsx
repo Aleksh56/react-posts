@@ -5,6 +5,8 @@ import AuthPage from "./components/AuthPage";
 import PostInfo from "./components/PostInfo";
 import ErrorPage from "./components/404Error/ErrorPage";
 import UserProfile from "./components/UserProfilePage/UserProfile";
+import { UserDataContext } from "./context/UserContext";
+
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -25,10 +27,17 @@ const App = () => {
     setIsAuthenticated(false);
     setLocalStorageisAuth(false);
   };
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
+  const handleUserDataUpdate = (newUserData) => {
+    setUserData(newUserData);
+  };
 
   const isLoggedIn = isAuthenticated || JSON.parse(localStorageisAuth);
   // Сделать здесь общий Footer и Header, кроме Auth, чтобы не подключать их в других страницах
   return (
+    <UserDataContext.Provider value={{ userData, handleUserDataUpdate }}>
     <Routes>
       <Route
         path='/'
@@ -73,6 +82,8 @@ const App = () => {
       <Route path='/profile/:userId' element={<UserProfile />} />
       <Route path='*' element={<ErrorPage />} />
     </Routes>
+    </UserDataContext.Provider>
+
   );
 };
 
