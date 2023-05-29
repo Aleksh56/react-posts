@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Breadcrumb, Button } from "antd";
+import { Breadcrumb, Button, Input } from "antd";
 import { FaArrowLeft, FaHeart } from "react-icons/fa";
+import { DeleteOutlined } from "@ant-design/icons";
 import EditPost from "./EditPost";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -10,6 +11,7 @@ import { api } from "../api/api";
 const PostInfo = ({ onLogout }) => {
   const [postInfo, setPostInfo] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [commentText, setCommentText] = useState("");
   const {
     author = { name: "avtor", avatar: "" },
     comments = [],
@@ -21,14 +23,25 @@ const PostInfo = ({ onLogout }) => {
     title = "",
     _id = "",
   } = postInfo;
+  const postId = window.location.href.split("/").pop();
 
+  const fetchPostInfo = async () => {
+    setPostInfo(await api.getInfoAboutPostById(postId));
+  };
   useEffect(() => {
-    const fetchPostInfo = async () => {
-      const postId = window.location.href.split("/").pop();
-      setPostInfo(await api.getInfoAboutPostById(postId));
-    };
     fetchPostInfo();
   }, []);
+
+  const handleDeleteComment = async (commentId) => {
+    await api.removeCommentFromPost(postId, commentId);
+    fetchPostInfo();
+  };
+
+  const handleSubmitComment = async () => {
+    const responce = await api.addCommentToPost(postId, commentText);
+    setCommentText("");
+    fetchPostInfo();
+  };
 
   const closeModal = () => setShowModal(false);
 
@@ -94,6 +107,50 @@ const PostInfo = ({ onLogout }) => {
                 </div>
                 <h1 className='text-2xl font-bold mb-4'>{title}</h1>
                 <p className='text-gray-700 leading-relaxed'>{text}</p>
+                <div className='mt-6'>
+                  <Input.TextArea
+                    placeholder='Add a comment...'
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                  />
+                  <Button
+                    className='mt-3'
+                    type='primary'
+                    onClick={handleSubmitComment}>
+                    Submit
+                  </Button>
+                </div>
+                {comments.length > 0 && (
+                  <div className='mt-6 p-3 max-h-[400px] overflow-y-auto'>
+                    <h2 className='text-xl font-bold mb-4'>
+                      {`${comments.length} Comments`}
+                    </h2>
+                    {comments.map((comment) => (
+                      <div
+                        key={comment._id}
+                        className='bg-sky-100 p-4 rounded-lg mb-4'>
+                        <div className='flex items-center mb-2 w-full'>
+                          <img
+                            src={comment.author.avatar}
+                            alt='Author'
+                            className='w-8 h-8 rounded-full mr-2'
+                          />
+                          <p className='font-medium'>{comment.author.name}</p>
+                          <p className='text-gray-600 ml-2'>{`Created on ${comment.created_at.substring(
+                            0,
+                            10
+                          )}`}</p>
+                          <button
+                            className='flex flex-row ml-5 rounded-full bg-sky-400 p-1 items-center'
+                            onClick={() => handleDeleteComment(comment._id)}>
+                            <DeleteOutlined />
+                          </button>
+                        </div>
+                        <p className='text-gray-700'>{comment.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>

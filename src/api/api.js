@@ -170,7 +170,28 @@ class Api{
         console.error('Ошибка:', error);
       }
     }
-    
-    
+    async addCommentToPost(postId, commentText){
+      try {
+        const response = await fetch(`${this.baseUrl}/posts/comments/${postId}`, {
+          method: 'POST',
+          headers: this.headers,
+          body:JSON.stringify({ text: commentText })
+        });
+        return response;
+      } catch (error) {
+        console.error('Ошибка:', error);
+      }
+    }
+    async removeCommentFromPost(postId, commentId){
+      try {
+        const response = await fetch(`${this.baseUrl}/posts/comments/${postId}/${commentId}`, {
+          method: 'DELETE',
+          headers: this.headers,
+        });
+        return response;
+      } catch (error) {
+        console.error('Ошибка:', error);
+      }
+    }
 }
 export const api = new Api(config)

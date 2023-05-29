@@ -15,6 +15,13 @@ const Header = ({ handleLogout }) => {
     setUserData(newUserData);
   };
 
+  useEffect(() => {
+    const userDataFromStorage = JSON.parse(localStorage.getItem("userData"));
+    if (userDataFromStorage !== userData) {
+      setUserData(userDataFromStorage);
+    }
+  }, []);
+
   return (
     <header className='bg-blue-300 px-4'>
       <div className='container mx-auto flex items-center justify-between py-4 w-full max-sm:flex-col max-sm:items-start'>

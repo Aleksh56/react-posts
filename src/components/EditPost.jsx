@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Modal, Form, Input, Button } from "antd";
 import { api } from "../api/api";
 
@@ -17,6 +17,13 @@ const EditPost = ({ postInfo, closeModal }) => {
     },
     [postData]
   );
+
+  const fetchPostInfo = async () => {
+    setPostInfo(await api.getInfoAboutPostById(postId));
+  };
+  useEffect(() => {
+    fetchPostInfo();
+  }, []);
 
   const handleOk = useCallback(async () => {
     try {

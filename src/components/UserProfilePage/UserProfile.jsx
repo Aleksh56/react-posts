@@ -29,7 +29,6 @@ const UserProfile = () => {
           name: values.name,
           about: values.about,
         };
-        console.log(formData);
         await api.updateUserAvatar({ avatar: avatarUrl });
         const updatedUserData = await api.updateUserInfo(formData);
         setUserInfo(updatedUserData);
