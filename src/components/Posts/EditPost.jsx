@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { Modal, Form, Input, Button } from "antd";
-import { api } from "../api/api";
+import { api } from "../../api/api";
 
 const EditPost = ({ postInfo, closeModal }) => {
   const [postData, setPostData] = useState(postInfo);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaHeart, FaTrash } from "react-icons/fa";
-import { api } from "../api/api";
+import { api } from "../../api/api";
 import { Card, Avatar, Tag, Button, Space } from "antd";
 import { HeartOutlined, HeartFilled, DeleteOutlined } from "@ant-design/icons";
 

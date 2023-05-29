@@ -1,22 +1,21 @@
 import { useState, useCallback } from "react";
 import { Modal, Form, Input, Button } from "antd";
-import { api } from "../api/api";
+import { api } from "../../api/api";
 import { PlusOutlined } from "@ant-design/icons";
 
 const CreatePost = ({ refreshFlagOnPage }) => {
   const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
 
-
   const handleOk = useCallback(async () => {
     try {
       const formData = await form.validateFields();
       const tags = formData.tags
-      ? formData.tags
-          .split(/[\s,]+/)
-          .filter((tag) => tag !== "")
-          .map((tag) => tag.trim())
-      : [];  
+        ? formData.tags
+            .split(/[\s,]+/)
+            .filter((tag) => tag !== "")
+            .map((tag) => tag.trim())
+        : [];
       const response = await api.addNewPost({ ...formData, tags });
       setShowModal(false);
       refreshFlagOnPage();

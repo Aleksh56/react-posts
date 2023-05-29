@@ -4,9 +4,9 @@ import { Breadcrumb, Button, Input } from "antd";
 import { FaArrowLeft, FaHeart } from "react-icons/fa";
 import { DeleteOutlined } from "@ant-design/icons";
 import EditPost from "./EditPost";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
-import { api } from "../api/api";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import { api } from "../../api/api";
 
 const PostInfo = ({ onLogout }) => {
   const [postInfo, setPostInfo] = useState({});

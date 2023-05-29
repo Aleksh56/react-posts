@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
-import { api } from "../api/api";
+import { api } from "../../api/api";
 import Post from "./Post";
-import styles from "../styles";
-import { DownOutlined, CommentOutlined, HeartOutlined, UserOutlined } from '@ant-design/icons';
+import styles from "../../styles";
+import {
+  DownOutlined,
+  CommentOutlined,
+  HeartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
-import { Card, Row, Col, Pagination, Button, Dropdown, Space,} from "antd";
-import Sort from "./Sort";
+import { Card, Row, Col, Pagination, Button, Dropdown, Space } from "antd";
+import Sort from "../Sort";
 
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const [posts, setPosts] = useState();
@@ -34,8 +39,9 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = sortedPosts && sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
-  
+  const currentPosts =
+    sortedPosts && sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
@@ -50,16 +56,16 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
     );
   }
 
-const sortPosts = (sortedPosts) => {
-  setSortedPosts(sortedPosts);
-  setCurrentPage(1);
-};
+  const sortPosts = (sortedPosts) => {
+    setSortedPosts(sortedPosts);
+    setCurrentPage(1);
+  };
 
   return (
     <div className=' px-4'>
       <div className='container flex justify-end mx-auto'>
-        <Sort onSort={sortPosts} postInfo={posts}/>
-        </div>
+        <Sort onSort={sortPosts} postInfo={posts} />
+      </div>
       <div className='container py-8 mx-auto flex flex-wrap'>
         <Row gutter={[16, 16]}>
           {currentPosts.map((post) => (

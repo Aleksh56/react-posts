@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Hero from "./Hero";
-import AllPosts from "./AllPosts";
-
+import AllPosts from "./Posts/AllPosts";
 
 const MainPage = ({ onLogout }) => {
   const [addPostFlag, setAddPostFlag] = useState(false);
@@ -11,7 +10,6 @@ const MainPage = ({ onLogout }) => {
   const refreshPostsOnPage = () => {
     setAddPostFlag(!addPostFlag);
   };
-
 
   return (
     <div className='flex flex-col min-h-screen'>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Logo from "../../assets/logo.png";
 // import EditProfile from "../EditProfile";
 import { api } from "../../api/api";
@@ -14,7 +14,7 @@ const Header = ({ handleLogout }) => {
   useEffect(() => {
     const userDataFromStorage = JSON.parse(localStorage.getItem("userData"));
     if (userDataFromStorage !== userData) {
-      setUserData(userDataFromStorage);
+      handleUserDataUpdate(userDataFromStorage);
     }
   }, []);
 
@@ -47,12 +47,12 @@ const Header = ({ handleLogout }) => {
               </div>
             </Link>
           </div>
-            <Button
-              size='large'
-              icon={<LogoutOutlined />}
-              type='primary'
-              href='/auth'
-              onClick={handleLogout}></Button>
+          <Button
+            size='large'
+            icon={<LogoutOutlined />}
+            type='primary'
+            href='/auth'
+            onClick={handleLogout}></Button>
         </div>
       </div>
     </header>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Breadcrumb, Button, Card } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import CreatePost from "./CreatePost";
+import CreatePost from "./Posts/CreatePost";
 
 const Hero = ({ refreshFlagOnPage }) => {
   return (
