@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FaHeart, FaTrash } from "react-icons/fa";
 import { api } from "../../api/api";
 import { Card, Avatar, Tag, Button, Space } from "antd";
-import { HeartOutlined, HeartFilled, DeleteOutlined } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled, DeleteOutlined,CommentOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
@@ -79,6 +79,14 @@ const Post = ({ postInfo, refreshPosts }) => {
             <div className='flex flex-row items-center'>
               <DeleteOutlined className='mr-1' />
               <span>Delete</span>
+            </div>
+          </Button>
+        </div>,
+        <div key='like' className='flex items-center justify-center'>
+          <Button>
+            <div className='flex flex-row items-center'>
+            <CommentOutlined  className='mr-1'/>
+            <span>{comments.length}</span>
             </div>
           </Button>
         </div>,
