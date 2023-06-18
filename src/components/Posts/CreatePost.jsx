@@ -32,7 +32,7 @@ const CreatePost = ({ refreshFlagOnPage }) => {
     <>
       <Button
         type='primary'
-        icon={<PlusOutlined />}
+        icon={<PlusOutlined className=""/>}
         onClick={() => setShowModal(true)}
         className='rounded-lg text-white font-bold'>
         Создать пост

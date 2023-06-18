@@ -1,48 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
 import { api } from "../../api/api";
 import Post from "./Post";
 import styles from "../../styles";
-import {
-  DownOutlined,
-  CommentOutlined,
-  HeartOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 
-import { Card, Row, Col, Pagination, Button, Dropdown, Space } from "antd";
+import {  Row, Col, Pagination } from "antd";
 import Sort from "../Sort";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setPosts,
+  setSortedPosts,
+  setCurrentPage,
+  setIsLoading,
+} from "../../store/actions/actions";
+
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
-  const [posts, setPosts] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(12);
-  const [sortedPosts, setSortedPosts] = useState(posts);
+  const dispatch = useDispatch();
+  const {
+    posts,
+    isLoading,
+    currentPage,
+    postsPerPage,
+    sortedPosts
+  } = useSelector((state) => state);
 
   useEffect(() => {
     const fetchAllPostFromApi = async () => {
       try {
-        setIsLoading(true);
+        dispatch(setIsLoading(true));
         const posts = await api.getAllPosts();
-        setPosts(posts);
-        setSortedPosts(posts);
+        dispatch(setPosts(posts));
+        dispatch(setSortedPosts(posts));
       } catch (error) {
         console.log(error);
       } finally {
-        setIsLoading(false);
+        dispatch(setIsLoading(false));
       }
     };
     fetchAllPostFromApi();
-  }, [refreshFlag]);
+  }, [refreshFlag, dispatch]);
+
+  const sortPosts = (sortedPosts) => {
+    dispatch(setSortedPosts(sortedPosts));
+    dispatch(setCurrentPage(1));
+  };
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts =
-    sortedPosts && sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -50,19 +57,14 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
 
   if (isLoading) {
     return (
-      <div className={`${styles.flexRowFullCenter} h-screen`}>
-        <FaSpinner className={styles.fetchLoader} />
+      <div className='flex h-screen items-center justify-center'>
+        <FaSpinner className='animate-spin h-8 w-8 text-blue-500' />
       </div>
     );
   }
 
-  const sortPosts = (sortedPosts) => {
-    setSortedPosts(sortedPosts);
-    setCurrentPage(1);
-  };
-
   return (
-    <div className=' px-4'>
+    <div className='px-4'>
       <div className='container flex justify-end mx-auto'>
         <Sort onSort={sortPosts} postInfo={posts} />
       </div>
@@ -83,7 +85,7 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
           pageSize={postsPerPage}
           total={posts.length}
           showSizeChanger={false}
-          onChange={paginate}
+          onChange={(pageNumber) => dispatch(setCurrentPage(pageNumber))}
         />
       </div>
     </div>
