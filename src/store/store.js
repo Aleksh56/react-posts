@@ -1,17 +1,17 @@
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
-import reducer from './reducer/reducer';
 import ProfileReducer from './reducer/ProfileReducer';
+import postsReducer from './reducer/PostsReducer';
 
 const initialState = {
   isLoading: true,
   currentPage: 1,
   postsPerPage: 12,
-  sortedPosts: [],
 };
 
 const rootReducer = combineReducers({
-  profile: ProfileReducer
+  profile: ProfileReducer,
+  posts: postsReducer
 })
 
 

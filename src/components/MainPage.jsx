@@ -3,6 +3,7 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Hero from "./Hero";
 import AllPosts from "./Posts/AllPosts";
+import Greeting from "./Greeting/Greeting";
 
 const MainPage = () => {
   const [addPostFlag, setAddPostFlag] = useState(false);
@@ -14,7 +15,8 @@ const MainPage = () => {
   return (
     <div className='flex flex-col min-h-screen'>
       <Header refreshPostsOnPage={refreshPostsOnPage} />
-      <main className='flex-1 bg-slate-200'>
+      <main className='flex-1 max-w-[1300px] mx-auto'>
+        <Greeting />
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
         <AllPosts
           refreshFlag={addPostFlag}

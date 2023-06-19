@@ -3,6 +3,7 @@ import {
     REMOVE_PROFILE_DATA,
     UPDATE_PROFILE_DATA,
   } from '../actions/ProfileActions';
+
   
   const initialState = {
     data: null,

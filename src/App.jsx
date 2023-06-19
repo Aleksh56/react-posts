@@ -10,9 +10,10 @@ import UserProfile from "./components/UserProfilePage/UserProfile";
 
 const App = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.profile.data !== null)
-    ? 1
-    : 0;
+  // const isLoggedIn = useSelector((state) => state.profile.data !== null)
+  //   ? 1
+  //   : 0;
+  const isLoggedIn = 1;
 
   const handleLogout = () => {
     dispatch(removeProfileData());

@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from "../../assets/logo.png";
 import { useSelector, useDispatch } from "react-redux";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -10,19 +9,13 @@ const Header = ({ handleLogout }) => {
   const dispatch = useDispatch();
 
   return (
-    <header className='bg-blue-300 px-4'>
+    <header className='bg-blue-300 px-4 py-3'>
       <div className='container mx-auto flex items-center justify-between py-4 w-full max-sm:flex-col max-sm:items-start'>
         <div className='header__logo flex items-center justify-center'>
           <Link to='/main'>
-            <img
-              src={Logo}
-              alt='Main logo'
-              className='max-w-[60px] max-h-[60px]'
-              width='60px'
-            />
-          </Link>
-          <Link to='/main'>
-            <h1 className='ml-3'>Реактивные посты</h1>
+            <h1 className='ml-3 text-3xl font-semibold tracking-tighter'>
+              Реактивные посты
+            </h1>
           </Link>
         </div>
         <div className='header__signin flex items-center'>
@@ -43,6 +36,7 @@ const Header = ({ handleLogout }) => {
             icon={<LogoutOutlined />}
             type='primary'
             href='/auth'
+            className='flex items-center justify-center'
             onClick={handleLogout}></Button>
         </div>
       </div>
