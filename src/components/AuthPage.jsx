@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { api } from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { addProfileData } from "../store/actions/ProfileActions";
 import "../index.css";
 import styles from "../styles";
+import { handleRegisterCheck } from "../utils/RegisterCheck";
 
-function AuthPage({ handleUserLogin }) {
+function AuthPage() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
@@ -11,23 +14,14 @@ function AuthPage({ handleUserLogin }) {
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [isLoginFormShown, setIsLoginFormShown] = useState(false);
   const [isResetFormShown, setIsResetFormShown] = useState(false);
-  const specialCharacters = '!@#$%^&*(),.?":';
-
-  const handleRegisterCheck = () => {
-    if (registerPassword.length < 6) {
-      alert("Пароль должен содержать больше 6 символов !");
-      return false;
-    } else {
-      return true;
-    }
-  };
+  const dispatch = useDispatch();
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      const loginSucces = await api.handleLoginSubmit(event);
-      loginSucces.success === 1
-        ? handleUserLogin(loginSucces.data)
+      const ProfileData = await api.handleLoginSubmit(event);
+      ProfileData.success === 1
+        ? dispatch(addProfileData(ProfileData.data))
         : console.log("Error");
     } catch (error) {
       console.log("Ошибка - ", error);
@@ -57,12 +51,6 @@ function AuthPage({ handleUserLogin }) {
 
   const toggleLoginAndRegForm = () => {
     setIsLoginFormShown(!isLoginFormShown);
-  };
-
-  const checkIfUserIsAlreadyAuth = () => {
-    if (localStorage.getItem("isAuthenticated") === true) {
-      handleUserLogin(true);
-    }
   };
 
   return (

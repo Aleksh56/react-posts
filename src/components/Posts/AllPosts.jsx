@@ -1,11 +1,17 @@
-import React, {  useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
 import { api } from "../../api/api";
 import Post from "./Post";
 import styles from "../../styles";
+import {
+  DownOutlined,
+  CommentOutlined,
+  HeartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
-import {  Row, Col, Pagination } from "antd";
+import { Row, Col, Pagination } from "antd";
 import Sort from "../Sort";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -17,39 +23,34 @@ import {
 } from "../../store/actions/actions";
 
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
-  const dispatch = useDispatch();
-  const {
-    posts,
-    isLoading,
-    currentPage,
-    postsPerPage,
-    sortedPosts
-  } = useSelector((state) => state);
+  const [posts, setPosts] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(12);
+  const [sortedPosts, setSortedPosts] = useState(posts);
 
   useEffect(() => {
     const fetchAllPostFromApi = async () => {
       try {
-        dispatch(setIsLoading(true));
+        setIsLoading(true);
         const posts = await api.getAllPosts();
-        dispatch(setPosts(posts));
-        dispatch(setSortedPosts(posts));
+        setPosts(posts);
+        setSortedPosts(posts);
       } catch (error) {
         console.log(error);
       } finally {
-        dispatch(setIsLoading(false));
+        setIsLoading(false);
       }
     };
     fetchAllPostFromApi();
-  }, [refreshFlag, dispatch]);
-
-  const sortPosts = (sortedPosts) => {
-    dispatch(setSortedPosts(sortedPosts));
-    dispatch(setCurrentPage(1));
-  };
+  }, [refreshFlag]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts =
+    sortedPosts && sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -62,6 +63,10 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
       </div>
     );
   }
+  const sortPosts = (sortedPosts) => {
+    setSortedPosts(sortedPosts);
+    setCurrentPage(1);
+  };
 
   return (
     <div className='px-4'>
@@ -85,7 +90,7 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
           pageSize={postsPerPage}
           total={posts.length}
           showSizeChanger={false}
-          onChange={(pageNumber) => dispatch(setCurrentPage(pageNumber))}
+          onChange={paginate}
         />
       </div>
     </div>

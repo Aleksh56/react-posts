@@ -1,22 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import Logo from "../../assets/logo.png";
-// import EditProfile from "../EditProfile";
-import { api } from "../../api/api";
+import { useSelector, useDispatch } from "react-redux";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { AudioOutlined } from "@ant-design/icons";
-import { Button, Input, Space } from "antd";
-import { UserDataContext } from "../../context/UserContext";
+import { Button } from "antd";
 
 const Header = ({ handleLogout }) => {
-  const { userData, handleUserDataUpdate } = useContext(UserDataContext);
-
-  useEffect(() => {
-    const userDataFromStorage = JSON.parse(localStorage.getItem("userData"));
-    if (userDataFromStorage !== userData) {
-      handleUserDataUpdate(userDataFromStorage);
-    }
-  }, []);
+  const userData = useSelector((state) => state.profile.data);
+  const dispatch = useDispatch();
 
   return (
     <header className='bg-blue-300 px-4'>

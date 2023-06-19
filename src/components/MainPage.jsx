@@ -4,7 +4,7 @@ import Footer from "./Footer/Footer";
 import Hero from "./Hero";
 import AllPosts from "./Posts/AllPosts";
 
-const MainPage = ({ onLogout }) => {
+const MainPage = () => {
   const [addPostFlag, setAddPostFlag] = useState(false);
 
   const refreshPostsOnPage = () => {
@@ -13,7 +13,7 @@ const MainPage = ({ onLogout }) => {
 
   return (
     <div className='flex flex-col min-h-screen'>
-      <Header handleLogout={onLogout} refreshPostsOnPage={refreshPostsOnPage} />
+      <Header refreshPostsOnPage={refreshPostsOnPage} />
       <main className='flex-1 bg-slate-200'>
         <Hero refreshFlagOnPage={refreshPostsOnPage} />
         <AllPosts
