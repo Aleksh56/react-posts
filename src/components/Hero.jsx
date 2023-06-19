@@ -6,8 +6,8 @@ import CreatePost from "./Posts/CreatePost";
 const Hero = ({ refreshFlagOnPage }) => {
   return (
     <section className='hero py-10 px-4'>
-      <div className='container mx-auto'>
-        <Card className='welcome__block bg-white rounded-lg p-7'>
+      <div className='container mx-auto '>
+        <Card className='welcome__block bg-red-400 rounded-lg p-7'>
           <Breadcrumb>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
           </Breadcrumb>

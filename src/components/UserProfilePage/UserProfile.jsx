@@ -44,66 +44,70 @@ const UserProfile = () => {
 
   return (
     <>
-      <Header />
-      <div className='container mx-auto h-screen flex items-center justify-center w-full'>
-        <div className='user__info flex flex-col items-center p-5 border-2 border-black rounded-xl gap-8 w-1/2'>
-          <h2 className='font-bold text-3xl'>Profile</h2>
-          <div className='user__avatar flex items-center gap-4'>
-            <div className='user__avatar-container flex flex-col items-center'>
-              <Image
-                width={150}
-                height={150}
-                className='rounded-full'
-                src={userInfo.avatar}
-                alt='User Avatar'
+    <Header />
+    <div className="container mx-auto min-h-screen flex items-center justify-center py-4">
+      <div className="user__info flex flex-col items-center p-5 border-2 border-black rounded-xl gap-8 w-full sm:w-3/4 lg:w-1/2 xl:w-1/3">
+        <h2 className="font-bold text-3xl">Profile</h2>
+        <div className="user__avatar flex items-center gap-4">
+          <div className="user__avatar-container flex flex-col items-center">
+            <Image
+              width={150}
+              height={150}
+              className="rounded-full"
+              src={avatarUrl}
+              alt="User Avatar"
+            />
+          </div>
+          <div className="user__avatar-buttons flex gap-3"></div>
+        </div>
+        <Divider />
+        <div className="user__about-container flex gap-7">
+          <Form
+            id="edit-profile-form"
+            form={form}
+            onFinish={handleSubmit}
+            layout="horizontal"
+          >
+            <Form.Item label="Фото профиля" name="avatar">
+              <Input
+                placeholder="Ссылка на фото профиля"
+                onChange={(e) => setAvatarUrl(e.target.value)}
               />
-            </div>
-            <div className='user__avatar-buttons flex gap-3'></div>
-          </div>
-          <Divider />
-          <div className='user__about-container flex gap-7'>
-            <Form
-              id='edit-profile-form'
-              form={form}
-              onFinish={handleSubmit}
-              layout='horizontal'>
-              <Form.Item label='Фото профиля' name='avatar'>
-                <Input
-                  placeholder='Ссылка на фото профиля'
-                  onChange={(e) => setAvatarUrl(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item label='Имя' name='name'>
-                <Input placeholder='Имя' />
-              </Form.Item>
-              <Form.Item label='Email' name='email'>
-                <Input placeholder='Email' disabled prefix={<MailOutlined />} />
-              </Form.Item>
-              <Form.Item label='О себе' name='about'>
-                <Input.TextArea
-                  placeholder='Информация о себе'
-                  rows={6}
-                  cols={40}
-                />
-              </Form.Item>
-            </Form>
-          </div>
-          <Button
-            key='submit'
-            type='primary'
-            form='edit-profile-form'
-            htmlType='submit'
-            className='self-center'>
-            Сохранить
-          </Button>
-          {loading && (
-            <div className='spinner-container'>
-              <Spin size='large' />
-            </div>
-          )}
+            </Form.Item>
+            <Form.Item label="Имя" name="name">
+              <Input placeholder="Имя" />
+            </Form.Item>
+            <Form.Item label="Email" name="email">
+              <Input
+                placeholder="Email"
+                disabled
+                prefix={<MailOutlined />}
+              />
+            </Form.Item>
+            <Form.Item label="О себе" name="about">
+              <Input.TextArea
+                placeholder="Информация о себе"
+                rows={6}
+                cols={40}
+              />
+            </Form.Item>
+          </Form>
+        </div>
+        <Button
+          key="submit"
+          type="primary"
+          form="edit-profile-form"
+          htmlType="submit"
+          className="self-center"
+        >
+          Сохранить
+        </Button>
+        <div className="w-full flex justify-center">
+          {loading && <Spin size="large" />}
         </div>
       </div>
-    </>
+    </div>
+  </>
   );
 };
 

@@ -53,6 +53,8 @@ function AuthPage() {
     setIsLoginFormShown(!isLoginFormShown);
   };
 
+  
+
   return (
     <div className={`h-screen ${styles.flexRowItemsCenter}`}>
       <div className='w-1/3 h-screen flex-shrink-0'>
