@@ -9,7 +9,7 @@ const Greeting = () => {
         <h2 className='text-[#D05270] text-[50px] tracking-tight font-bold mb-[30px]'>
           React Posts
         </h2>
-        <p className='mb-[60px]'>
+        <p className='mb-12'>
           React Posts - это проект, который позволяет пользователям создавать,
           просматривать, лайкать и комментировать посты. Пользователи могут
           зарегистрироваться, чтобы создавать свои собственные посты, добавлять
@@ -22,23 +22,23 @@ const Greeting = () => {
         <div className='flex items-center gap-6 md:flex-row flex-col'>
           <a
             href='#'
-            className='w-[240px] h-[60px] bg-black text-white font-bold flex items-center justify-center gap-3'>
+            className='bg-black rounded-lg text-white font-bold flex items-center justify-center gap-3 p-4 flex-col md:flex-row'>
             <img
               src={GitHubMark}
               alt=''
               className='max-w-[20px] max-h-[20px]'
             />
-            GitHub(Александр)
+            <span>GitHub(Александр)</span>
           </a>
           <a
             href='#'
-            className='w-[240px] h-[60px] bg-black text-white font-bold flex items-center justify-center gap-3'>
+            className='bg-black rounded-lg text-white font-bold flex items-center justify-center gap-3 p-4 flex-col md:flex-row'>
             <img
               src={GitHubMark}
               alt=''
-              className='max-w-[20px] max-h-[20px]'
+              className='max-w-[20px] max-h-[20px] '
             />
-            GitHub(Никита)
+            <span>GitHub(Никита)</span>
           </a>
         </div>
       </div>

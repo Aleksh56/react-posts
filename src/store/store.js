@@ -5,11 +5,6 @@ import storage from 'redux-persist/lib/storage';
 import ProfileReducer from './reducer/ProfileReducer';
 import postsReducer from './reducer/PostsReducer';
 
-const initialState = {
-  isLoading: true,
-  currentPage: 1,
-  postsPerPage: 12,
-};
 
 const persistConfig = {
   key: 'root',

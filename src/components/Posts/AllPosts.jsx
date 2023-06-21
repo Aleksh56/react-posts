@@ -3,14 +3,6 @@ import { Link } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
 import { api } from "../../api/api";
 import Post from "./Post";
-import styles from "../../styles";
-import {
-  DownOutlined,
-  CommentOutlined,
-  HeartOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-
 import { Row, Col, Pagination } from "antd";
 import Sort from "../Sort";
 
@@ -68,7 +60,7 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
       <div className='container py-8 mx-auto flex flex-wrap'>
         <Row gutter={[16, 16]}>
           {currentPosts.map((post) => (
-            <Col xs={24} sm={24} md={12} lg={6} key={post._id}>
+            <Col xs={24} sm={24} md={12} lg={8} key={post._id}>
               <Link to={`/post/${post._id}`}>
                 <Post postInfo={post} refreshPosts={refreshPostsOnPage} />
               </Link>

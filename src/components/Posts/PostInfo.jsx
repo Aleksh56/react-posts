@@ -64,18 +64,18 @@ const PostInfo = ({ onLogout }) => {
                 Back
               </Link>
             </div>
-            <div className='flex py-3 items-start justify-between post__content'>
+            <div className='flex py-3 flex-col lg:flex-row lg:items-start lg:justify-between post__content'>
               <img
                 src={image}
                 alt='Post'
-                className='object-cover max-w-[600px] lg:w-2/3'
+                className='object-cover max-w-full lg:max-w-[600px] lg:w-2/3'
               />
               <div className='p-4 lg:w-1/3 w-full'>
-                <div className='mb-4 flex items-center'>
+                <div className='mb-4 flex items-center flex-col lg:flex-row'>
                   <img
                     src={author.avatar}
                     alt='Author'
-                    className='w-12 h-12 rounded-full mr-4'
+                    className='w-12 h-12 rounded-full mr-4 mb-2 lg:mb-0'
                   />
                   <div className='mr-7'>
                     <p className='text-lg font-medium'>{author.name}</p>
