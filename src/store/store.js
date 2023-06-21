@@ -15,7 +15,7 @@ const persistConfig = {
   key: 'root',
   storage,
   blacklist: [], // Удалите редьюсеры из blacklist, которые вы хотите сохранить
-  version: 1, // Увеличьте версию, чтобы принудительно сбросить состояние при изменении конфигурации persist
+  version: 1, 
 };
 
 const rootReducer = combineReducers({

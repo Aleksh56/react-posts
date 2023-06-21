@@ -15,11 +15,14 @@ const App = () => {
   const dispatch = useDispatch();
   let isLoggedIn = useSelector((state) => state.profile.isLoggedIn);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     dispatch({ type: "LOGOUT" });
     dispatch(removeProfileData());
     dispatch(setLoggedIn(false));
-    persistor.purge().then(() => persistor.flush());
+    await persistor.purge();
+    persistor.pause();
+    persistor.persist();
+    persistor.flush();
   };
 
   return (

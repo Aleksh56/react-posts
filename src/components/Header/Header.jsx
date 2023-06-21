@@ -10,7 +10,7 @@ const Header = ({ handleLogout }) => {
 
   return (
     <header className='bg-blue-300 px-4 py-3'>
-      <div className='container mx-auto flex items-center justify-between py-4 w-full max-sm:flex-col max-sm:items-start'>
+      <div className='container mx-auto flex items-center justify-center gap-5 md:gap-0 md:justify-between flex-col md:flex-row py-4 w-full max-sm:flex-col'>
         <div className='header__logo flex items-center justify-center'>
           <Link to='/main'>
             <h1 className='ml-3 text-3xl font-semibold tracking-tighter'>

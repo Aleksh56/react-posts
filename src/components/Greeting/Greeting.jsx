@@ -4,7 +4,7 @@ import GitHubMark from "../../assets/github-mark-white.png";
 
 const Greeting = () => {
   return (
-    <div className='flex items-center justify-between py-[100px]'>
+    <div className='flex items-center justify-between flex-col-reverse md:flex-row py-[100px] px-4'>
       <div className='greeting__info max-w-[55%]'>
         <h2 className='text-[#D05270] text-[50px] tracking-tight font-bold mb-[30px]'>
           React Posts
@@ -19,7 +19,7 @@ const Greeting = () => {
           проект использует технологии React и Redux, что позволяет создавать
           масштабируемое и легко поддерживаемое приложение.
         </p>
-        <div className='flex items-center gap-6'>
+        <div className='flex items-center gap-6 md:flex-row flex-col'>
           <a
             href='#'
             className='w-[240px] h-[60px] bg-black text-white font-bold flex items-center justify-center gap-3'>
@@ -42,8 +42,12 @@ const Greeting = () => {
           </a>
         </div>
       </div>
-      <div className='greeting__img'>
-        <img src={GreetingImage} alt='' />
+      <div className='greeting__img mx-auto w-[30%]'>
+        <img
+          src={GreetingImage}
+          alt=''
+          className=' sm:max-w-full md:w-full md:max-w-full'
+        />
       </div>
     </div>
   );
