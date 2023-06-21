@@ -35,7 +35,6 @@ const enhancer = composeEnhancers(
 
 const store = createStore(
   persistedReducer,
-  initialState,
   enhancer
 );
 
