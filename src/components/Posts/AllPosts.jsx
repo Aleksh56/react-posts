@@ -14,14 +14,6 @@ import {
 import { Row, Col, Pagination } from "antd";
 import Sort from "../Sort";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setPosts,
-  setSortedPosts,
-  setCurrentPage,
-  setIsLoading,
-} from "../../store/actions/actions";
-
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const [posts, setPosts] = useState();
   const [isLoading, setIsLoading] = useState(true);

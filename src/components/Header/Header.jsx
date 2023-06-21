@@ -6,7 +6,7 @@ import { Button } from "antd";
 
 const Header = ({ handleLogout }) => {
   const userData = useSelector((state) => state.profile.data);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <header className='bg-blue-300 px-4 py-3'>

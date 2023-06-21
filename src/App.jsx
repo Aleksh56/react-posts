@@ -7,16 +7,19 @@ import AuthPage from "./components/AuthPage";
 import PostInfo from "./components/Posts/PostInfo";
 import ErrorPage from "./components/404Error/ErrorPage";
 import UserProfile from "./components/UserProfilePage/UserProfile";
+import { persistor } from "./store/store";
+import { PURGE } from "redux-persist";
+import { setLoggedIn } from "./store/actions/ProfileActions";
 
 const App = () => {
   const dispatch = useDispatch();
-  // const isLoggedIn = useSelector((state) => state.profile.data !== null)
-  //   ? 1
-  //   : 0;
-  const isLoggedIn = 1;
+  let isLoggedIn = useSelector((state) => state.profile.isLoggedIn);
 
   const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
     dispatch(removeProfileData());
+    dispatch(setLoggedIn(false));
+    persistor.purge().then(() => persistor.flush());
   };
 
   return (

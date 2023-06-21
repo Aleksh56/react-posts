@@ -22,7 +22,6 @@ export const getAllPosts = () => async (dispatch) => {
 
 export const addPost = (newPost) => async (dispatch) => {
   try {
-    await api.addNewPost(newPost);
     dispatch({ type: ADD_POST, payload: newPost });
   } catch (error) {
     console.error(error);
