@@ -45,7 +45,7 @@ const UserProfile = () => {
   return (
     <>
       <Header />
-      <div className='container mx-auto h-screen flex items-center justify-center w-full'>
+      <div className='container mx-auto my-7 flex items-center justify-center w-full'>
         <div className='user__info flex flex-col items-center p-5 border-2 border-black rounded-xl gap-8 w-1/2'>
           <h2 className='font-bold text-3xl'>Profile</h2>
           <div className='user__avatar flex items-center gap-4'>
