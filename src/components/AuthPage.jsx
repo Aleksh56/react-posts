@@ -30,7 +30,7 @@ function AuthPage() {
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
-    if (handleRegisterCheck()) {
+    if (handleRegisterCheck(registerPassword)) {
       try {
         const regResult = await api.handleRegisterSubmit(event);
         console.log(regResult);
@@ -52,8 +52,6 @@ function AuthPage() {
   const toggleLoginAndRegForm = () => {
     setIsLoginFormShown(!isLoginFormShown);
   };
-
-  
 
   return (
     <div className={`h-screen ${styles.flexRowItemsCenter}`}>

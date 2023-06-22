@@ -1,5 +1,5 @@
 // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ5NWNkMDhmYmM0NzNmYTg5ZTQwMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjgyNTMzMDE5LCJleHAiOjE3MTQwNjkwMTl9.Qa6u4j8xEUS63vaBMcY0aT5v6THU1a5emwdfZiRtUfY"
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDY2MzY1MmUwYmYyYzUxOWJhOTcyMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjg0NDIwNDcwLCJleHAiOjE3MTU5NTY0NzB9.E7t_V4y0-KD-Md0WP7-dPyj-OOWcBuTOVaRxAXmFYcc"
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDY2MzY1MmUwYmYyYzUxOWJhOTcyMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjg0NDIwNDcwLCJleHAiOjE3MTU5NTY0NzB9.E7t_V4y0-KD-Md0WP7-dPyj-OOWcBuTOVaRxAXmFYcc"
 const urlGroup = "https://api.react-learning.ru/v2/ep"
 let fetchedToken = ""
 
@@ -49,7 +49,7 @@ class Api{
     
         if (response.ok) {
           const data = await response.json();
-          fetchedToken = data.token
+          token = data.token
           console.log(data)
           return { success: 1, data: data.data };
         } else {

@@ -9,7 +9,7 @@ import postsReducer from './reducer/PostsReducer';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: [], // Удалите редьюсеры из blacklist, которые вы хотите сохранить
+  blacklist: [], 
   version: 1, 
 };
 
@@ -18,15 +18,15 @@ const rootReducer = combineReducers({
   posts: postsReducer,
 });
 
-const resettableReducer = (state, action) => {
-  if (action.type === 'LOGOUT') {
-    state = undefined;
-  }
+// const resettableReducer = (state, action) => {
+//   if (action.type === 'LOGOUT') {
+//     state = undefined;
+//   }
 
-  return rootReducer(state, action);
-};
+//   return rootReducer(state, action);
+// };
 
-const persistedReducer = persistReducer(persistConfig, resettableReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(

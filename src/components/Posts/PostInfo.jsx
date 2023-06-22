@@ -50,7 +50,7 @@ const PostInfo = ({ onLogout }) => {
       {showModal && <EditPost postInfo={postInfo} closeModal={closeModal} />}
       <div className='min-h-screen flex flex-col'>
         <Header handleLogout={onLogout} />
-        <div className='flex-1 bg-sky-200 py-8 post__about'>
+        <div className='flex-1 py-8 post__about'>
           <div className='container mx-auto flex flex-col flex-wrap post__info'>
             <Breadcrumb className='mb-3'>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
