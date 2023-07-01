@@ -16,7 +16,8 @@ const CreatePost = ({ refreshFlagOnPage }) => {
             .filter((tag) => tag !== "")
             .map((tag) => tag.trim())
         : [];
-      const response = await api.addNewPost({ ...formData, tags });
+      const uniqueTags = [...new Set(tags)];
+      const response = await api.addNewPost({ ...formData, tags: uniqueTags });
       setShowModal(false);
       refreshFlagOnPage();
     } catch (error) {
