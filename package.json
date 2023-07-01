@@ -21,7 +21,9 @@
     "react-spring": "^9.7.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
-    "redux-reset": "^0.3.0"
+    "redux-reset": "^0.3.0",
+    "redux-session-storage": "^2.0.1",
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

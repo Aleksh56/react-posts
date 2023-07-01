@@ -3,10 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
+import {
+  removeProfileData,
+  setLoggedIn,
+} from "../../store/actions/ProfileActions";
 
-const Header = ({ handleLogout }) => {
+const Header = () => {
   const userData = useSelector((state) => state.profile.data);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(removeProfileData());
+    dispatch(setLoggedIn(false));
+  };
 
   return (
     <header className='bg-blue-300 px-4 py-3'>

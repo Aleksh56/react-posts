@@ -4,7 +4,10 @@ import { MailOutlined } from "@ant-design/icons";
 import Header from "../Header/Header";
 import { api } from "../../api/api";
 import { useSelector, useDispatch } from "react-redux";
-import { updateProfileData } from "../../store/actions/ProfileActions";
+import {
+  setLoggedIn,
+  updateProfileData,
+} from "../../store/actions/ProfileActions";
 
 const UserProfile = () => {
   const userInfo = useSelector((state) => state.profile.data);
@@ -33,6 +36,7 @@ const UserProfile = () => {
         await api.updateUserAvatar({ avatar: avatarUrl });
         const updatedUserData = await api.updateUserInfo(formData);
         dispatch(updateProfileData(updatedUserData));
+        dispatch(setLoggedIn(true));
         setLoading(false);
       } catch (error) {
         console.error(error);

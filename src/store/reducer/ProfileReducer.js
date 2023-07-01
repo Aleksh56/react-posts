@@ -15,20 +15,21 @@ const ProfileReducer = (state = initialState, action) => {
     case ADD_PROFILE_DATA:
       return {
         data: action.payload,
-        isLoggedIn: true
       };
     case REMOVE_PROFILE_DATA:
+      localStorage.removeItem('profile');
       return {
-        isLoggedIn: false
+        ...state,
+        isLoggedIn: false,
+        data: null,
       };
-    case UPDATE_PROFILE_DATA:
-      return {
-        data: {
-          ...state.data,
-          ...action.payload,
-        },
-      };
+      case UPDATE_PROFILE_DATA:
+        localStorage.setItem('profile', JSON.stringify({ data: action.payload, isLoggedIn: true }));
+        return {
+          data: action.payload,
+        };
     case SET_LOGGED_IN:
+      localStorage.setItem('profile', JSON.stringify({isLoggedIn: action.payload }));
       return {
         ...state,
         isLoggedIn: action.payload,

@@ -1,43 +1,52 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import ProfileReducer from './reducer/ProfileReducer';
 import postsReducer from './reducer/PostsReducer';
-
-
-const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist: [], 
-  version: 1, 
-};
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   profile: ProfileReducer,
   posts: postsReducer,
 });
 
-// const resettableReducer = (state, action) => {
-//   if (action.type === 'LOGOUT') {
-//     state = undefined;
-//   }
 
-//   return rootReducer(state, action);
-// };
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem('profile');
+    if (serializedState === null) {
+      return undefined;
+    }
+    const profileData = JSON.parse(serializedState);
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+    return profileData;
+  } catch (err) {
+    return undefined;
+  }
+};
+
+const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('profile', serializedState);
+  } catch (err) {
+  }
+};
+
+const persistedState = loadState();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(
-  applyMiddleware()
+  applyMiddleware(thunk)
 );
 
 const store = createStore(
-  persistedReducer,
+  rootReducer,
+  { profile: persistedState }, 
   enhancer
 );
 
-const persistor = persistStore(store);
+store.subscribe(() => {
+  saveState(store.getState().profile);
+});
 
-export { store, persistor };
+export default store;

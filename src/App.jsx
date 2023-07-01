@@ -1,29 +1,14 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { removeProfileData } from "./store/actions/ProfileActions";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Route, Routes, Navigate } from "react-router-dom";
 import MainPage from "./components/MainPage";
 import AuthPage from "./components/AuthPage";
 import PostInfo from "./components/Posts/PostInfo";
 import ErrorPage from "./components/404Error/ErrorPage";
 import UserProfile from "./components/UserProfilePage/UserProfile";
-import { persistor } from "./store/store";
-import { PURGE } from "redux-persist";
-import { setLoggedIn } from "./store/actions/ProfileActions";
 
 const App = () => {
-  const dispatch = useDispatch();
   let isLoggedIn = useSelector((state) => state.profile.isLoggedIn);
-
-  const handleLogout = async () => {
-    dispatch({ type: "LOGOUT" });
-    dispatch(removeProfileData());
-    dispatch(setLoggedIn(false));
-    await persistor.purge();
-    persistor.pause();
-    persistor.persist();
-    persistor.flush();
-  };
 
   return (
     <Routes>
@@ -37,13 +22,7 @@ const App = () => {
       />
       <Route
         path='/post/:postId'
-        element={
-          isLoggedIn ? (
-            <PostInfo onLogout={handleLogout} />
-          ) : (
-            <Navigate to='/' replace />
-          )
-        }
+        element={isLoggedIn ? <PostInfo /> : <Navigate to='/' replace />}
       />
       <Route
         path='/auth'

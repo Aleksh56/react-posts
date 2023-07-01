@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { api } from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
-import { addProfileData } from "../store/actions/ProfileActions";
+import { addProfileData, setLoggedIn } from "../store/actions/ProfileActions";
 import "../index.css";
 import styles from "../styles";
 import { handleRegisterCheck } from "../utils/RegisterCheck";
@@ -20,9 +20,12 @@ function AuthPage() {
     event.preventDefault();
     try {
       const ProfileData = await api.handleLoginSubmit(event);
-      ProfileData.success === 1
-        ? dispatch(addProfileData(ProfileData.data))
-        : console.log("Error");
+      if (ProfileData.success === 1) {
+        dispatch(addProfileData(ProfileData.data));
+        dispatch(setLoggedIn(true));
+      } else {
+        console.log("Error");
+      }
     } catch (error) {
       console.log("Ошибка - ", error);
     }

@@ -10,8 +10,8 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const [posts, setPosts] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(12);
   const [sortedPosts, setSortedPosts] = useState(posts);
+  const postsPerPage = 12;
 
   useEffect(() => {
     const fetchAllPostFromApi = async () => {
