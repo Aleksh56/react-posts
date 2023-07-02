@@ -19,7 +19,7 @@ const Hero = ({ refreshFlagOnPage }) => {
             <CreatePost refreshFlagOnPage={refreshFlagOnPage}>
               <Button
                 type='primary'
-                icon={<PlusOutlined />}
+                icon={<PlusOutlined/>}
                 className='bg-sky-700'>
                 Create a new post
               </Button>

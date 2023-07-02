@@ -42,7 +42,7 @@ const Greeting = () => {
           </a>
         </div>
       </div>
-      <div className='greeting__img mx-auto w-[30%]'>
+      <div className='greeting__img mx-auto w-[30%] max-sm:hidden'>
         <img
           src={GreetingImage}
           alt=''

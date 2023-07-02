@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Breadcrumb, Button, Input } from "antd";
+import { Breadcrumb, Button, Input, Tag, Space } from "antd";
 import { FaArrowLeft, FaHeart } from "react-icons/fa";
 import { DeleteOutlined } from "@ant-design/icons";
 import EditPost from "./EditPost";
@@ -45,6 +45,12 @@ const PostInfo = ({ onLogout }) => {
 
   const closeModal = () => setShowModal(false);
 
+  const flattenedTags = tags
+    .map((tagList) =>
+      tagList.split(/[\s,]+/).filter((tag) => tag.trim() !== "")
+    )
+    .flat();
+
   return (
     <>
       {showModal && <EditPost postInfo={postInfo} closeModal={closeModal} />}
@@ -86,7 +92,7 @@ const PostInfo = ({ onLogout }) => {
                   </div>
                   <Button
                     type='primary'
-                    className='bg-sky-400 px-3 py-2 rounded-xl transition-all hover:bg-sky-300'
+                    className='bg-sky-400 px-3 py-2 rounded-xl transition-all hover:bg-sky-300 flex justify-center items-center'
                     onClick={() => setShowModal(true)}>
                     Edit post
                   </Button>
@@ -96,14 +102,13 @@ const PostInfo = ({ onLogout }) => {
                   <p className='text-gray-600'>{`${likes.length} likes`}</p>
                 </div>
                 <div className='flex flex-wrap mt-4'>
-                  {tags[0].split(" ").map((tag) => (
-                    <div
-                      key={tag + Math.random(1, 200)}
-                      className='bg-sky-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
-                      style={{ maxWidth: "calc(100% - 1rem)" }}>
-                      {`#${tag}`}
-                    </div>
-                  ))}
+                  <Space size={[0, 8]} wrap>
+                    {flattenedTags.map((tag, index) => (
+                      <Tag key={index} className='inline-block'>
+                        #{tag}
+                      </Tag>
+                    ))}
+                  </Space>
                 </div>
                 <h1 className='text-2xl font-bold mb-4'>{title}</h1>
                 <p className='text-gray-700 leading-relaxed'>{text}</p>
