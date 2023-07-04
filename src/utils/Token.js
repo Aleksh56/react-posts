@@ -1,7 +1,7 @@
-export const handleLogin = () => {
+export const handleGetToken = () => {
     const headers = {
       'Content-Type': "application/json",
-      authorization: localStorage.getItem("react_posts_token")
+      authorization: JSON.parse(localStorage.getItem("token"))
     };
     return { headers };
   };

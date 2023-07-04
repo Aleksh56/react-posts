@@ -21,7 +21,7 @@ const Greeting = () => {
         </p>
         <div className='flex items-center gap-6 md:flex-row flex-col'>
           <a
-            href='#'
+            href='https://github.com/Aleksh56'
             className='bg-black rounded-lg text-white font-bold flex items-center justify-center gap-3 p-4 flex-col md:flex-row'>
             <img
               src={GitHubMark}
@@ -31,7 +31,7 @@ const Greeting = () => {
             <span>GitHub(Александр)</span>
           </a>
           <a
-            href='#'
+            href='https://github.com/VasyaRns'
             className='bg-black rounded-lg text-white font-bold flex items-center justify-center gap-3 p-4 flex-col md:flex-row'>
             <img
               src={GitHubMark}

@@ -5,6 +5,7 @@ import { addProfileData, setLoggedIn } from "../store/actions/ProfileActions";
 import "../index.css";
 import styles from "../styles";
 import { handleRegisterCheck } from "../utils/RegisterCheck";
+import { getAllPosts } from "../store/actions/PostsActions";
 
 function AuthPage() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -23,6 +24,7 @@ function AuthPage() {
       if (ProfileData.success === 1) {
         dispatch(addProfileData(ProfileData.data));
         dispatch(setLoggedIn(true));
+        dispatch(getAllPosts());
       } else {
         console.log("Error");
       }

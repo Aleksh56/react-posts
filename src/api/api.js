@@ -1,21 +1,14 @@
-// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDQ5NWNkMDhmYmM0NzNmYTg5ZTQwMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjgyNTMzMDE5LCJleHAiOjE3MTQwNjkwMTl9.Qa6u4j8xEUS63vaBMcY0aT5v6THU1a5emwdfZiRtUfY"
-let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDY2MzY1MmUwYmYyYzUxOWJhOTcyMDciLCJncm91cCI6ImVwIiwiaWF0IjoxNjg0NDIwNDcwLCJleHAiOjE3MTU5NTY0NzB9.E7t_V4y0-KD-Md0WP7-dPyj-OOWcBuTOVaRxAXmFYcc"
-const urlGroup = "https://api.react-learning.ru/v2/ep"
-let fetchedToken = ""
+import {handleGetToken} from "../utils/Token"
 
+const urlGroup = "https://api.react-learning.ru/v2/ep"
 
 const config = {
   baseUrl: urlGroup,
-  headers: {
-      "Content-Type": "application/json",
-      authorization: token,
-  },
 }
 
 class Api{
     constructor(data){
       this.baseUrl = data.baseUrl;
-      this.headers = data.headers;
     }
 
     handleResetPassword = (event) => {
@@ -25,10 +18,7 @@ class Api{
         body: JSON.stringify({
           email: event.target.children[0].children[1].value,
         }),
-        headers: {
-          "Content-Type": "application/json",
-          authorization: token
-        },
+        ...handleGetToken(),
       })
         .then((response) => response.json())
         .then((json) => console.log(json))
@@ -42,15 +32,11 @@ class Api{
             email: event.target.children[0].children[1].value,
             password: event.target.children[1].children[1].value,
           }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+          ...handleGetToken(),
         });
-    
         if (response.ok) {
           const data = await response.json();
-          token = data.token
-          console.log(data)
+          localStorage.setItem('token', JSON.stringify(data.token))
           return { success: 1, data: data.data };
         } else {
           return 0;
@@ -70,9 +56,7 @@ class Api{
             group: "ep",
             password: event.target.children[1].children[1].value,
           }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+          ...handleGetToken(),
         });
         return 1
       } catch (error) {
@@ -83,7 +67,7 @@ class Api{
     
     async getUserInfo() {
       const response = await fetch(`${this.baseUrl}/users/me`, {
-        headers: this.headers,
+        ...handleGetToken(),
       });
       const userData = await response.json();
       return userData;
@@ -92,7 +76,7 @@ class Api{
     async updateUserInfo(updUser) {
       const newUserData = await fetch(`${this.baseUrl}/users/me`, {
         method: "PATCH",
-        headers: this.headers,
+        ...handleGetToken(),
         body: JSON.stringify(updUser)
     })
     const updatedUserData = await newUserData.json()
@@ -101,13 +85,13 @@ class Api{
     async updateUserAvatar(updAvatar){
       await fetch(`${this.baseUrl}/users/me/avatar`, {
         method: "PATCH",
-        headers: this.headers,
+        ...handleGetToken(),
         body:JSON.stringify(updAvatar)
     })
     }
     async getAllPosts() {
       const response = await fetch(`${this.baseUrl}/posts`, {
-        headers: this.headers,
+        ...handleGetToken(),
       });
       const allPosts = await response.json();
       return allPosts;
@@ -116,15 +100,16 @@ class Api{
     async addNewPost(newPost) {
       await fetch(`${this.baseUrl}/posts`, {
         method: "POST",
-        headers: this.headers,
+        ...handleGetToken(),
         body: JSON.stringify(newPost),
       });
     }
 
     async updatePostInfo(post) {
+      console.log(handleGetToken())
       await fetch(`${this.baseUrl}/posts/${post._id}`, {
         method: "PATCH",
-        headers: this.headers,
+        ...handleGetToken(),
         body: JSON.stringify(post),
       });
     }
@@ -133,14 +118,14 @@ class Api{
     async deletePost(postId) {
       await fetch(`${this.baseUrl}/posts/${postId}`, {
         method: "DELETE",
-        headers: this.headers,
+        ...handleGetToken(),
       });
     }
 
     async getInfoAboutPostById(postId) {
       const response = await fetch(`${this.baseUrl}/posts/${postId}`, {
         method: "GET",
-        headers:this.headers,
+        ...handleGetToken(),
       });
       const postInfo = await response.json();
       return postInfo;
@@ -150,7 +135,7 @@ class Api{
       try {
         const response = await fetch(`${this.baseUrl}/posts/likes/${postId}`, {
           method: 'PUT',
-          headers: this.headers,
+          ...handleGetToken(),
         });
         const data = await response.json();
         return data;
@@ -162,7 +147,7 @@ class Api{
       try {
         const response = await fetch(`${this.baseUrl}/posts/likes/${postId}`, {
           method: 'DELETE',
-          headers: this.headers,
+          ...handleGetToken(),
         });
         const data = await response.json();
         return data;
@@ -174,7 +159,7 @@ class Api{
       try {
         const response = await fetch(`${this.baseUrl}/posts/comments/${postId}`, {
           method: 'POST',
-          headers: this.headers,
+          ...handleGetToken(),
           body:JSON.stringify({ text: commentText })
         });
         return response;
@@ -186,7 +171,7 @@ class Api{
       try {
         const response = await fetch(`${this.baseUrl}/posts/comments/${postId}/${commentId}`, {
           method: 'DELETE',
-          headers: this.headers,
+          ...handleGetToken(),
         });
         return response;
       } catch (error) {
