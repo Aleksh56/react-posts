@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { api } from "../api/api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProfileData, setLoggedIn } from "../store/actions/ProfileActions";
 import "../index.css";
 import styles from "../styles";
 import { handleRegisterCheck } from "../utils/RegisterCheck";
-import { getAllPosts } from "../store/actions/PostsActions";
 
 function AuthPage() {
   const [loginEmail, setLoginEmail] = useState("");

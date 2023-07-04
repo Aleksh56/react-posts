@@ -1,14 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux';
 import ProfileReducer from './reducer/ProfileReducer';
-import postsReducer from './reducer/PostsReducer';
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   profile: ProfileReducer,
-  posts: postsReducer,
 });
-
 
 const loadState = () => {
   try {
