@@ -10,18 +10,17 @@ import { getAllPosts } from "../../store/actions/PostsActions";
 
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const dispatch = useDispatch();
-  const [posts, setPosts] = useState(useSelector((state) => state.posts.posts));
+  const posts = useSelector((state) => state.posts.posts);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedPosts, setSortedPosts] = useState(posts);
   const postsPerPage = 12;
-  console.log(posts);
 
   useEffect(() => {
     const fetchAllPostFromApi = async () => {
       try {
         setIsLoading(true);
-        setPosts(dispatch(getAllPosts()));
+        await dispatch(getAllPosts());
         setSortedPosts(posts);
       } catch (error) {
         console.log(error);
@@ -30,7 +29,9 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
       }
     };
     fetchAllPostFromApi();
-  }, [refreshFlag]);
+  },[refreshFlag, posts]);
+
+
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
