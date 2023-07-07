@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
-import { api } from "../../api/api";
 import Post from "./Post";
 import { Row, Col, Pagination } from "antd";
 import Sort from "../Sort";
@@ -11,32 +10,35 @@ import { getAllPosts } from "../../store/actions/PostsActions";
 const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
+  const prevPostsRef = useRef(posts);
+
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedPosts, setSortedPosts] = useState(posts);
   const postsPerPage = 12;
 
   useEffect(() => {
-    const fetchAllPostFromApi = async () => {
+    const fetchAllPostsFromApi = async () => {
       try {
         setIsLoading(true);
-        await dispatch(getAllPosts());
-        setSortedPosts(posts);
+        dispatch(getAllPosts());
+        prevPostsRef.current = posts;
       } catch (error) {
         console.log(error);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchAllPostFromApi();
-  },[refreshFlag, posts]);
+    fetchAllPostsFromApi();
+  }, [posts]);
 
-
+  useEffect(() => {
+    setSortedPosts(posts);
+  }, [posts]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts =
-    sortedPosts && sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -51,6 +53,7 @@ const AllPosts = ({ refreshFlag, refreshPostsOnPage }) => {
       </div>
     );
   }
+
   const sortPosts = (sortedPosts) => {
     setSortedPosts(sortedPosts);
     setCurrentPage(1);
